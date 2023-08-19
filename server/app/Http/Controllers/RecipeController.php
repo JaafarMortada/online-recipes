@@ -6,6 +6,7 @@ use App\Models\Comment;
 use App\Models\Recipe;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RecipeController extends Controller
 {
@@ -32,6 +33,20 @@ class RecipeController extends Controller
             unset($comment->recipe_id);
         }
         return response()->json(['comments' => $recipe->comments]);
+    }
+
+    public function PostComment(Request $request){
+        $new_comment = new Comment;
+        $new_comment->user_id = Auth::id();
+        $new_comment->recipe_id = $request->recipe_id;
+        $new_comment->comment = $request->comment;
+        try{
+            $new_comment->save();
+            return response()->json(['status' => 'success']);
+        } catch (\Throwable $e) {
+            return response()->json(['status' => 'failed']);
+        }
+        
     }
 }
 
