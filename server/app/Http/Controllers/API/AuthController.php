@@ -10,49 +10,51 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
-    }
-
     public function login(Request $request)
     {
-        $request->validate([
-            'email' => 'required|string|email',
-            'password' => 'required|string',
-        ]);
+        try {
+            $request->validate([
+                'email' => 'required|string|email',
+                'password' => 'required|string',
+            ]);
+        } catch (\Throwable $e) {
+            return response()->json(["message" => 'failed']);
+        }
         $credentials = $request->only('email', 'password');
         $token = Auth::attempt($credentials);
-        
+
         if (!$token) {
             return response()->json([
                 'message' => 'Unauthorized',
             ], 401);
         }
-
         $user = Auth::user();
+        $user->token = $token;
         return response()->json([
-            'user' => $user,
-            'authorization' => [
-                'token' => $token,
-                'type' => 'bearer',
-            ]
+            'message' => 'logged in successfully',
+            'user' => $user
         ]);
     }
 
     public function register(Request $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6',
-        ]);
-
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        try {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255|unique:users',
+                'password' => 'required|string|min:8',
+            ]);
+        } catch (\Throwable $e) {
+            return response()->json(["message" => 'failed']);
+        }
+        $user = new User;
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->user_type_id = $request->user_type_id;
+        $user->password = Hash::make($request->password);
+        $user->save();
+        $token = Auth::login($user);
+        $user->token = $token;
 
         return response()->json([
             'message' => 'User created successfully',
@@ -70,12 +72,12 @@ class AuthController extends Controller
 
     public function refresh()
     {
+        $token = Auth::refresh();
+        $user = Auth::user();
+        $user->token = $token;
         return response()->json([
-            'user' => Auth::user(),
-            'authorisation' => [
-                'token' => Auth::refresh(),
-                'type' => 'bearer',
-            ]
+            'message' => 'refreshed successfully',
+            'user' => $user
         ]);
     }
 }
