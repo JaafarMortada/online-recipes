@@ -1,0 +1,14 @@
+.comment-bubble{
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid rgb(247, 129, 91);
+}
+
+.comment-commenter{
+    font-weight: 800;
+    font-size: 0.8rem;
+}
+
+.comment-content{
+    font-size: 0.9rem;
+}

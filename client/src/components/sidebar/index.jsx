@@ -7,16 +7,12 @@ import Logo from '../../assets/logo';
 import { FaListUl, FaCalendarAlt } from 'react-icons/fa';
 import { BiLogOut } from 'react-icons/bi';
 import { VscSearch } from 'react-icons/vsc';
+import { PiCheckFatFill } from 'react-icons/pi';
 
 const MySideBar = () => {
   return (
     <>
-      <Sidebar
-        // rootStyles={
-        //   // {height: '100vh', display:'flex', flexFlow:'column wrap'}
-          
-        // }
-      >
+      <Sidebar>
         <div>
         <div className='sidebar-user-profile'>
           <div className='sidebar-user-icon-div'>
@@ -37,9 +33,9 @@ const MySideBar = () => {
             </MenuItem>
           </SubMenu>
           <SubMenu icon={<FaListUl/>} label="My Shopping Lists" >
-            <MenuItem > List 1 </MenuItem>
-            <MenuItem > List 2 </MenuItem>
-            <MenuItem > List 3 </MenuItem>
+            <MenuItem icon={<PiCheckFatFill/>}> List 1 </MenuItem>
+            <MenuItem icon={<PiCheckFatFill/>}> List 2 </MenuItem>
+            <MenuItem icon={<PiCheckFatFill/>}> List 3 </MenuItem>
           </SubMenu>
           <MenuItem icon={<FaCalendarAlt/>}> Calendar </MenuItem>
         </Menu>
