@@ -4,10 +4,13 @@
 }
 
 .ps-sidebar-container{
-    height: 100vh;
+    height: 100vh !important;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: fixed !important;
+    top: 0;
+    left: 0;
 }
 .sidebar-user-profile{
     height: 150px;

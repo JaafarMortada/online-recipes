@@ -1,0 +1,134 @@
+.recipe-card{
+    display: flex;
+    width: 16.5625rem;
+    height: 22rem;
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: 0rem 0rem 0.9375rem 0.9375rem;
+    background: #F3F3F3;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.recipe-card:hover{
+    transform: scale(1.02, 1.02);
+}
+.recipe-image{
+    width: 16.5625rem;
+    height: 12.5rem;
+    flex-shrink: 0;
+}
+
+.recipe-image>img{
+    width: 16.5625rem;
+    height: 12.5rem;
+}
+
+.recipe-name-container{
+    display: flex;
+    width: 16.5625rem;
+    height: 3.4375rem;
+    padding: 0rem 1.6875rem;
+    align-items: center;
+    gap: 0.625rem;
+    flex-shrink: 0;
+}
+
+.recipe-title{
+    color: #040404;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.recipe-card-bottom-section{
+    display: flex;
+    flex-wrap: nowrap;
+    width: 16.5625rem;
+    height: 6.0625rem;
+    padding: 0rem 0rem 0.625rem 0.625rem;
+    /* align-items: flex-start; */
+    flex-shrink: 0;
+    border-radius: 0rem 0rem 0.9375rem 0.9375rem;
+}
+
+.recipe-card-button-section-left{
+    display: flex;
+    width: 13.375rem;
+    height: 6.0625rem;
+    padding-right: 0px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.625rem;
+    color: #000;
+}
+
+.ingredients{
+    color: #000;
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;    
+    margin-bottom: 0.5rem;
+}
+
+.ingredients>p{
+    padding: 0;
+    margin: 0 0 10px;
+}
+.recipe-button-container{
+    display: flex;
+    width: 7rem;
+    padding: 0.1875rem 2.8125rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.625rem;
+}
+
+.add-to-list-btn{
+    width: 5.3125rem;
+    height: 1.25rem;
+    border-radius: 0.3125rem;
+    height: 1.5rem;
+    background: rgb(18, 20, 33);
+    color: #FFF;
+    border: 0;
+    cursor: pointer;
+    margin-left: 2.9rem;
+
+}
+
+.add-to-list-btn:hover{
+    background-color: rgb(247, 129, 91);
+    color: rgb(18, 20, 33);
+}
+
+.recipe-card-buttons{
+    display: flex;
+    width: 3rem;
+    height: 6.0625rem;
+    padding: 0rem 0.625rem 0.625rem 0.625rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+    flex-shrink: 0;
+}
+
+.card-svg{
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+.svg-with-count{
+    display: flex;
+    width: 3rem;
+}
+
+.svg-with-count>span{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.card-share{
+    margin-left: 1.1rem;
+}
