@@ -22,8 +22,8 @@ const MySideBar = () => {
           <span className='sidebar-username'>Username</span>
         </div>
         <Menu >
-          <SubMenu label="Search" >
-            <MenuItem style={{ height: '120px', padding: '5px 15px 5px' }}>
+          <SubMenu label="Search By" >
+            <MenuItem style={{ height: '140px', padding: '5px 15px 5px' }}>
               <div className='search-options'>
               <MyButton label={"name"} />
               <MyButton label={"cuisine"} />
@@ -42,6 +42,10 @@ const MySideBar = () => {
         </Menu>
         </div>
         <div className='sidebar-logo-container'>
+          <Menu>
+            <MenuItem> Logout </MenuItem>
+          </Menu>
+        
           <div className='sidebar-logo-icon-div'>
             <Logo/>
           </div>
