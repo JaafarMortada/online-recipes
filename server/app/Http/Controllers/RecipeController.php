@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Cuisine;
+use App\Models\Ingredient;
 use App\Models\Recipe;
+use App\Models\RecipesIngredients;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,6 +25,44 @@ class RecipeController extends Controller
             unset($recipe->comments);
         }
         return response()->json(['recipes' => $recipes]);
+    }
+
+    public function createRecipe(Request $request)
+    {
+        $new_recipe = new Recipe;
+        $new_recipe->user_id = Auth::id();
+        $cuisine = Cuisine::where('name', $request->cuisine)->first();
+        if(is_null($cuisine)){
+            $cuisine = new Cuisine;
+            $cuisine->name = $request->cuisine;
+            $cuisine->save();
+        }
+        $cuisine_id = $cuisine->id;
+        $new_recipe->name = $request->name;
+        $new_recipe->cuisine_id = $cuisine_id;
+        try{
+            $new_recipe->save();
+            foreach(json_decode($request->ingredients) as $ingredient){
+                $db_ingredient = Ingredient::where('name', $ingredient->name)->first();
+                if(is_null($db_ingredient) ){
+                    $db_ingredient = new Ingredient;
+                    $db_ingredient->name = $ingredient->name;
+                    $db_ingredient->save();
+                }
+                $recipe_ingredient = new RecipesIngredients;
+                $recipe_ingredient->recipe_id = $new_recipe->id;
+                $recipe_ingredient->ingredient_id = $db_ingredient->id;
+                $recipe_ingredient->amount = $ingredient->amount;
+                try{
+                    $recipe_ingredient->save();
+                } catch (\Throwable $e) {
+                    return response()->json(['status' => 'failed']);
+                }
+            }
+            return response()->json(['status' => 'success']);
+        } catch (\Throwable $e) {
+            return response()->json(['status' => 'failed']);
+        }
     }
 
     public function getComments(Request $request){

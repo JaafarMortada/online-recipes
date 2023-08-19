@@ -8,6 +8,7 @@ use App\Http\Controllers\API\AuthController;
 Route::get("recipes", [RecipeController::class, "getRecipes"]);
 Route::post("comments", [RecipeController::class, "getComments"]);
 Route::post("post_comment", [RecipeController::class, "PostComment"]);
+Route::post("create_recipe", [RecipeController::class, "createRecipe"]);
 
 Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'login');
