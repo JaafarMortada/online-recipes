@@ -1,0 +1,27 @@
+.login-page-body{
+    display: flex;
+    height: 100vh;
+}
+
+
+.login-page-left-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex:1
+}
+
+.animated-chef-container{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-page-right-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1
+}

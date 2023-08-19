@@ -1,11 +1,12 @@
 import "./styles.css"
 
-const MyButton = ({ label, onClick }) => {
+const MyButton = ({ label, onClick, styles }) => {
     return (
         <div className="myButton-container">
             <button 
                 onClick={onClick}
-                className="myButton transition">
+                className="myButton transition"
+                style={styles}>
                 {label}
             </button>
         </div>

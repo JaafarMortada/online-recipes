@@ -3,6 +3,11 @@
     flex-flow: column wrap;
 }
 
+.text-input-label{
+    font-size: 0.8rem;
+    padding-bottom: 5px;
+}
+
 .text-input {
     outline: none;
     border: 2px solid rgb(204, 204, 204);
