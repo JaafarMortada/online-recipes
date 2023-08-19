@@ -6,12 +6,14 @@ import Logo from "../../../assets/logo";
 import "./styles.css"
 // import axios from "axios";
 
-const LoginForm = ( { toggleForms, toggle } ) => {
+const RegistrationForm = ( { toggleForms } ) => {
     // localStorage.clear()
     // const navigate = useNavigate();
     const [data, setData] = useState({
+        name: "",
         email: "",
-        password: ""
+        password: "",
+        ver_password: ""
     })
 
     const handleDataChange = (e)=>{
@@ -40,11 +42,19 @@ const LoginForm = ( { toggleForms, toggle } ) => {
         }
     
     return (
-        <div className="login-form-container rotate-form">
-            <div className="login-logo-container">
-                <Logo className={"login-form-logo"}/>
+        <div className="register-form-container rotate-form ">
+            <div className="register-logo-container">
+                <Logo className={"register-form-logo"}/>
             </div>
 
+            <TextInput
+                name = {"name"}
+                label={"Enter Your Name:"}
+                type={"text"}
+                value={data.name}
+                placeholder={"Enter Your name"}
+                onChange={handleDataChange}
+            />
             <TextInput
                 name = {"email"}
                 label={"Enter Your E-mail:"}
@@ -58,21 +68,29 @@ const LoginForm = ( { toggleForms, toggle } ) => {
                 label={"Enter Your Password:"}
                 type={"password"}
                 value={data.password}
-                placeholder={"Enter Your Password"}
+                placeholder={"Enter Your password"}
                 onChange={handleDataChange}
             />
-            <div className="login-btn-div">
+            <TextInput
+                name = {"ver_password"}
+                label={"Verify Your Password:"}
+                type={"password"}
+                value={data.ver_password}
+                placeholder={"Verify your password"}
+                onChange={handleDataChange}
+            />
+            <div className="register-btn-div">
                 <MyButton 
                 id="login-btn" 
                 onClick={handleSubmit} 
-                label={'Login'}
+                label={'Register'}
                 styles={{width: "150px", fontSize:"1rem"}}
                 ></MyButton>
             </div>
             
-            <span>Don't have an account? <br/><span className="register-link" onClick={toggleForms}>Register here!</span>  </span>
+            <span>Already have an account? <br/><span className="login-link" onClick={toggleForms}>Login here!</span>  </span>
         </div>
     );
 };
 
-export default LoginForm;
+export default RegistrationForm;
