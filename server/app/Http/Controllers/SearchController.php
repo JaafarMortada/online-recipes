@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cuisine;
 use App\Models\Ingredient;
 use App\Models\Recipe;
 use Illuminate\Http\Request;
@@ -26,5 +27,16 @@ class SearchController extends Controller
             $ingredient->recipes;
         }
         return response()->json(['recipes' => $ingredients]);
+    }
+
+    public function searchByCuisine(Request $request){
+        if(is_null(Auth::user())){
+            return response()->json(['status' => 'failed']);
+        }
+        $cuisines = Cuisine::where('name', 'LIKE', "%{$request->name}%")->get();
+        foreach($cuisines as $cuisine){
+            $cuisine->recipes;
+        }
+        return response()->json(['recipes' => $cuisines]);
     }
 }
