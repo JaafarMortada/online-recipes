@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ingredient;
 use App\Models\Recipe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,4 +17,14 @@ class SearchController extends Controller
         return response()->json(['recipes' => $recipes]);
     }
 
+    public function searchByIngredient(Request $request){
+        if(is_null(Auth::user())){
+            return response()->json(['status' => 'failed']);
+        }
+        $ingredients = Ingredient::where('name', 'LIKE', "%{$request->name}%")->get();
+        foreach($ingredients as $ingredient){
+            $ingredient->recipes;
+        }
+        return response()->json(['recipes' => $ingredients]);
+    }
 }

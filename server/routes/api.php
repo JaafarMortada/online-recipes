@@ -11,6 +11,7 @@ Route::post("comments", [RecipeController::class, "getComments"]);
 Route::post("post_comment", [RecipeController::class, "PostComment"]);
 Route::post("create_recipe", [RecipeController::class, "createRecipe"]);
 Route::post("search_by_name", [SearchController::class, "searchByName"]);
+Route::post("search_by_ingredient", [SearchController::class, "searchByIngredient"]);
 
 Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'login');
