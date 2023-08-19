@@ -1,0 +1,46 @@
+.ps-menu-button:hover{
+    background-color: rgba(247, 129, 91, 0.3) !important;
+    transition: all 0.8s cubic-bezier(0.175, 0.885, 0, 1);
+}
+
+.ps-sidebar-container{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.sidebar-user-profile{
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.sidebar-user-icon-div{
+    display: flex;
+    justify-content: center;
+    padding: 20px 0 20px;
+}
+
+.sidebar-username{
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.sidebar-logo-container{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.sidebar-rights{
+    text-align: center;
+    font-size: 0.8rem;
+}
+
+.search-options{
+    display: flex;
+    gap: 5px;
+    justify-content: space-between;
+}

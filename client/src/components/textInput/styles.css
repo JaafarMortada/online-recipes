@@ -1,0 +1,21 @@
+.text-input-container{
+    display: flex;
+    flex-flow: column wrap;
+}
+
+.text-input {
+    outline: none;
+    border: 2px solid rgb(204, 204, 204);
+    border-radius: 5px;
+    padding: 5px;
+    background-color: none;
+    font-size: 14px;
+}
+
+.text-input:hover {
+    border-color: rgb(247, 129, 91);
+}
+
+.transition{
+    transition: all 0.8s cubic-bezier(0.175, 0.885, 0, 1);
+}
