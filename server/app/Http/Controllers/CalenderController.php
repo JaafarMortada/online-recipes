@@ -23,7 +23,7 @@ class CalenderController extends Controller
         
         $user = Auth::user();
 
-        if (is_null($user)){
+        if (is_null($user) || $request->meal === "" || $request->date === ""){
             return response()->json(["message" => 'failed']);
         }
         $new_event = new Plan;
