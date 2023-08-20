@@ -1,0 +1,30 @@
+.pagination-div {
+    margin-bottom: 2rem;
+    /* align-self: center; */
+    display: flex;
+    gap: 0.5rem;
+    width: fit-content;
+}
+
+.pagination-div>button {
+    background-color: rgb(247, 129, 91);
+    border: 1px solid rgb(18, 20, 33);
+    font-size: 1rem;
+    font-weight: 300;
+    border-radius: 5px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0, 1);
+    cursor: pointer;
+    padding: auto;
+    height: 30px;
+    width: 30px;
+    line-height: 0;
+}
+
+.pagination-div>button:hover {
+    transform: scale(1.02, 1.02);
+}
+
+.highlight {
+    background-color: rgb(18, 20, 33) !important;
+    color: white;
+}

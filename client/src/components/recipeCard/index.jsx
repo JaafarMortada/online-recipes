@@ -5,7 +5,7 @@ import { AiFillHeart } from 'react-icons/ai';
 import { BiSolidCommentMinus } from 'react-icons/bi';
 import { IoMdShareAlt } from 'react-icons/io';
 
-const RecipeCard = () => {
+const RecipeCard = ( { data } ) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false)
 
