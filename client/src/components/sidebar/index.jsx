@@ -7,10 +7,17 @@ import Logo from '../../assets/logo';
 import { FaListUl, FaCalendarAlt } from 'react-icons/fa';
 import { BiLogOut } from 'react-icons/bi';
 import { VscSearch } from 'react-icons/vsc';
-import { PiCheckFatFill } from 'react-icons/pi';
 import { MdOutlineAdd } from 'react-icons/md';
+import { useNavigate } from "react-router-dom";
 
 const MySideBar = () => {
+
+  const navigate = useNavigate()
+
+  const viewCalender = () => {
+    navigate("/calender")
+  }
+  
   return (
     <>
       <Sidebar>
@@ -37,7 +44,7 @@ const MySideBar = () => {
             <MenuItem icon={<FaListUl/>}> My Shopping List </MenuItem>
           <SubMenu icon={<FaCalendarAlt/>} label="Calender" >
             <MenuItem icon={<MdOutlineAdd/>}> Add an event </MenuItem>
-            <MenuItem icon={<FaCalendarAlt/>}> View calender </MenuItem>
+            <MenuItem icon={<FaCalendarAlt/>} onClick={viewCalender}> View calender </MenuItem>
           </SubMenu>
         </Menu>
         </div>

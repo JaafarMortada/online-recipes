@@ -1,27 +1,36 @@
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import './styles.css'
+import { useState, useEffect } from 'react'
+import { sendRequest } from "../../config/request";
+
 const MealPlanner = () => {
     
+    const [events, setEvents] = useState([])
+    
+    useEffect(() => {
+        const getEventsHandler = async () => {
+            try {
+                const response = await sendRequest({
+                    method: "GET",
+                    route: "/api/get_plans",
+                });
+                setEvents(response.events)
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        getEventsHandler()
+    }, [])
     return (
-        
         <div className='calender-container'>
             <FullCalendar
-            plugins={[dayGridPlugin]}
-            initialView="dayGridMonth"
-            weekends={true}
-            events={[
-                { title: 'event 1', date: '2023-08-05' },
-                { title: 'event 2', date: '2023-08-02' },
-                { title: 'event 3', date: '2023-08-02' },
-                { title: 'event 4', date: '2023-08-15' },
-                { title: 'event 5', date: '2023-08-19' },
-                { title: 'event 6', date: '2023-08-25' },
-            ]}
-            
-        />
+                plugins={[dayGridPlugin]}
+                initialView="dayGridMonth"
+                weekends={true}
+                events={events}
+            />
         </div>
-        
     );
 }
 
