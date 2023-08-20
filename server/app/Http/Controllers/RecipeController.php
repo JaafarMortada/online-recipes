@@ -65,8 +65,8 @@ class RecipeController extends Controller
         }
     }
 
-    public function getComments(Request $request){
-        $recipe = Recipe::where('id', $request->id)->first();
+    public function getComments($id){
+        $recipe = Recipe::where('id', $id)->first();
         foreach($recipe->comments as $comment){
             $comment -> commenter = User::where('id', $comment->user_id)->pluck('name')->first();
             unset($comment->user_id);

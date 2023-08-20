@@ -7,14 +7,16 @@ use App\Models\Recipe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class LikeCommentController extends Controller
+class LikeController extends Controller
 
 {
     public function like(Request $request){
         $like = new Like;
         $like->recipe_id = intval($request->recipe_id);
         $user_id = Auth::id();
-        if(is_null($user_id) || is_null(Recipe::where('id', $request->recipe_id)->first())){
+        $check_if_liked = Like::where("user_id", $user_id)->where('recipe_id', $request->recipe_id)->first();
+        if(is_null($user_id) || is_null(Recipe::where('id', $request->recipe_id)->first())
+            || !is_null($check_if_liked)){
             return response()->json(["status" => "failed"]);
         }
         $like->user_id = $user_id;
