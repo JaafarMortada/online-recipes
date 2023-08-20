@@ -4,6 +4,7 @@ use App\Http\Controllers\RecipeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\CalenderController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\SearchController;
 
@@ -16,6 +17,8 @@ Route::post("search_by_ingredient", [SearchController::class, "searchByIngredien
 Route::post("search_by_cuisine", [SearchController::class, "searchByCuisine"]);
 Route::post("like", [LikeController::class, "like"]);
 Route::post("unlike", [LikeController::class, "unlike"]);
+Route::get("get_plans", [CalenderController::class, "getPlans"]);
+Route::post("set_plan", [CalenderController::class, "setPlan"]);
 
 Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'login');
