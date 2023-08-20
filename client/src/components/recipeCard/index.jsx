@@ -4,8 +4,26 @@ import RecipeModal from "../modal";
 import { AiFillHeart } from 'react-icons/ai';
 import { BiSolidCommentMinus } from 'react-icons/bi';
 import { IoMdShareAlt } from 'react-icons/io';
-
+import { sendRequest } from "../../config/request";
 const RecipeCard = ( { data } ) => {
+
+    const [likesCount, setLikesCount] = useState(data.likes_count)
+
+    const likeHandler = async () => {
+        try {
+            const response = await sendRequest({
+                method: "POST",
+                route: "/api/like",
+                body: {recipe_id: data.id},
+            });
+            if(response.message === "success"){
+                setLikesCount(likesCount + 1)
+            } else {
+                //
+            }
+        } catch (error) {
+            console.log(error)
+        }}
 
     const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -16,8 +34,8 @@ const RecipeCard = ( { data } ) => {
     return ( 
         <>
         <RecipeModal isOpen={isModalOpen} toggleModal={toggleModal} data={ data }/>
-        <div className="recipe-card transition" onClick={() => setIsModalOpen(true)}>
-            <div className="recipe-image">
+        <div className="recipe-card transition" >
+            <div className="recipe-image" onClick={() => setIsModalOpen(true)}>
                 <img src="https://cdn.pixabay.com/photo/2016/12/26/17/28/spaghetti-1932466_1280.jpg"></img>
             </div>
             <div className="recipe-name-container">
@@ -46,7 +64,7 @@ const RecipeCard = ( { data } ) => {
                         <span>{data.comments_count}</span><BiSolidCommentMinus className="card-svg"/>
                     </div>
                     <div className="svg-with-count">
-                        <span>{data.likes_count}</span> <AiFillHeart className="card-svg"/>
+                        <span>{likesCount}</span> <AiFillHeart className="card-svg" onClick={likeHandler}/>
                     </div>
                 </div>
             </div>
