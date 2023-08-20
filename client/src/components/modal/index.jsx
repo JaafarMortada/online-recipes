@@ -4,7 +4,7 @@ import RecipeInfoModalContent from './recipeInfoModalContent';
 import AddRecipeFromModal from './addRecipeModalContent';
 import AddCalenderEvent from './addEvent';
 
-const RecipeModal = ({toggleModal, isOpen, data}) => {
+const RecipeModal = ({toggleModal, isOpen, data, from}) => {
     return ( 
         <ReactModal
                 isOpen={isOpen}
@@ -38,9 +38,9 @@ const RecipeModal = ({toggleModal, isOpen, data}) => {
                 }}
                 
             >
-                <RecipeInfoModalContent data={ data }/>
-                {/* <AddRecipeFromModal/> */}
-                {/* <AddCalenderEvent/> */}
+                {(from === "card") ? <RecipeInfoModalContent data={ data }/> : null}
+                {(from === "addRecipe") ? <AddRecipeFromModal/> : null}
+                {(from === "addCalenderEvent") ? <AddCalenderEvent/> : null }
             </ReactModal>
     );
 }

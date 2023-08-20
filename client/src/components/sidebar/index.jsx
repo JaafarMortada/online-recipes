@@ -9,17 +9,37 @@ import { BiLogOut } from 'react-icons/bi';
 import { VscSearch } from 'react-icons/vsc';
 import { MdOutlineAdd } from 'react-icons/md';
 import { useNavigate } from "react-router-dom";
+import { useState, useCallback } from 'react';
+import RecipeModal from '../modal';
 
 const MySideBar = () => {
 
   const navigate = useNavigate()
+  const [modalChoice, setModalChoice] = useState("")
+
+  const openModalToAddEvent = () => {
+    setModalChoice("addCalenderEvent")
+    setIsModalOpen(true)
+  }
+
+  const openModalToAddRecipe = () => {
+    setModalChoice("addRecipe")
+    setIsModalOpen(true)
+  }
 
   const viewCalender = () => {
     navigate("/calender")
   }
-  
+
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const toggleModal = useCallback(() => {
+      setIsModalOpen(prevValue => !prevValue);
+  }, []);
+        
   return (
     <>
+      <RecipeModal isOpen={isModalOpen} toggleModal={toggleModal} from={modalChoice}/>
       <Sidebar>
         <div>
         <div className='sidebar-user-profile'>
@@ -40,10 +60,10 @@ const MySideBar = () => {
               <MyButton label={"Search"} />
             </MenuItem>
           </SubMenu>
-          <MenuItem icon={<MdOutlineAdd/>}> Create A Recipe </MenuItem>
+          <MenuItem icon={<MdOutlineAdd/>} onClick={openModalToAddRecipe}> Create A Recipe </MenuItem>
             <MenuItem icon={<FaListUl/>}> My Shopping List </MenuItem>
           <SubMenu icon={<FaCalendarAlt/>} label="Calender" >
-            <MenuItem icon={<MdOutlineAdd/>}> Add an event </MenuItem>
+            <MenuItem icon={<MdOutlineAdd/>} onClick={openModalToAddEvent}> Add an event </MenuItem>
             <MenuItem icon={<FaCalendarAlt/>} onClick={viewCalender}> View calender </MenuItem>
           </SubMenu>
         </Menu>

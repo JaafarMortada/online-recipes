@@ -74,8 +74,8 @@ const RecipeInfoModalContent = ( { data } ) => {
                 </div>
                 <div className='comments-container'>
                     {
-                        comments?.map((comment) => (
-                            <CommentBubble key={comment.id} data={comment}/>
+                        comments?.map((comment, index) => (
+                            <CommentBubble key={`${index}-${comment.commenter}`} data={comment}/>
                         ))
                     }
                 </div>

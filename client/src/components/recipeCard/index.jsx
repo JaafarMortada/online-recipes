@@ -33,7 +33,7 @@ const RecipeCard = ( { data } ) => {
 
     return ( 
         <>
-        <RecipeModal isOpen={isModalOpen} toggleModal={toggleModal} data={ data }/>
+        <RecipeModal isOpen={isModalOpen} toggleModal={toggleModal} data={ data } from={"card"}/>
         <div className="recipe-card transition" >
             <div className="recipe-image" onClick={() => setIsModalOpen(true)}>
                 <img src="https://cdn.pixabay.com/photo/2016/12/26/17/28/spaghetti-1932466_1280.jpg"></img>
@@ -45,10 +45,8 @@ const RecipeCard = ( { data } ) => {
                 <div className="ingredients">
                     <div className="card-ingredient-info transition">
                         {
-                            data.ingredients.map((ingredient, index) => (
-                                <>
-                                <span className="card-ingredient-text" key={index}>- {ingredient.name} {ingredient.pivot.amount}<br/></span>
-                                </>
+                            data.ingredients.map(ingredient => (
+                                <span className="card-ingredient-text" key={`${ingredient.name}-${ingredient.id}`}>- {ingredient.name} {ingredient.pivot.amount}<br/></span>
                             ))
                         }
                     </div>

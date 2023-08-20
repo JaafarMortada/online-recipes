@@ -17,6 +17,7 @@
     height: 12.5rem;
     flex-shrink: 0;
     border-bottom: 2px solid rgb(247, 129, 91);
+    cursor: pointer;
 }
 
 .recipe-image>img{
