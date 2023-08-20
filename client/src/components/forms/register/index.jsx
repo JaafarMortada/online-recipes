@@ -46,6 +46,7 @@ const RegistrationForm = ( { toggleForms } ) => {
             }
         } catch (error) {
             console.log(error)
+            register_btn.innerHTML = 'Try Again'
         }}
     
     return (

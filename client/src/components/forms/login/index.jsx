@@ -43,6 +43,7 @@ const LoginForm = ( { toggleForms } ) => {
             }
         } catch (error) {
             console.log(error)
+            login_btn.innerHTML = 'Try Again' 
         }}
     
     return (
