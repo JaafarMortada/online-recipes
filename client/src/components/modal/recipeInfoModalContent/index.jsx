@@ -3,8 +3,26 @@ import MyButton from '../../button';
 import CommentBubble from '../../comment';
 import TextInput from '../../textInput/Index';
 import ModalImage from '../modalImage';
+import { sendRequest } from '../../../config/request';
+import { useEffect, useState } from 'react';
+const RecipeInfoModalContent = ( { data } ) => {
 
-const RecipeInfoModalContent = () => {
+    const [comments, setComments] = useState([])
+    useEffect(() => {
+        const getCommentsHandler = async () => {
+            try {
+                const response = await sendRequest({
+                    method: "GET",
+                    route: `/api/comments/${data.id}`,
+                });
+                setComments(response.comments)
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        getCommentsHandler()
+    }, [])
+
     return (
         <div className='recipe-modal-content'>
             <div className='recipe-modal-content-left'>
@@ -17,7 +35,11 @@ const RecipeInfoModalContent = () => {
                     <MyButton label={< AiOutlineSend />} styles={{ marginTop: "10px", width: "40px" }} />
                 </div>
                 <div className='comments-container'>
-                    <CommentBubble />
+                    {
+                        comments?.map((comment) => (
+                            <CommentBubble key={comment.id} data={comment}/>
+                        ))
+                    }
                 </div>
                 <h1 className='comments-header'>Comments</h1>
             </div>

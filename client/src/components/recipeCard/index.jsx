@@ -15,34 +15,38 @@ const RecipeCard = ( { data } ) => {
 
     return ( 
         <>
-        <RecipeModal isOpen={isModalOpen} toggleModal={toggleModal}/>
+        <RecipeModal isOpen={isModalOpen} toggleModal={toggleModal} data={ data }/>
         <div className="recipe-card transition" onClick={() => setIsModalOpen(true)}>
             <div className="recipe-image">
                 <img src="https://cdn.pixabay.com/photo/2016/12/26/17/28/spaghetti-1932466_1280.jpg"></img>
             </div>
             <div className="recipe-name-container">
-                <span className="recipe-title">Recipe Name</span>
+                <span className="recipe-title">{data.name}</span>
             </div>
             <div className="recipe-card-bottom-section">
                 <div className="ingredients">
-                    <p>
-                        - ingredient 1 300g<br/>
-                        - ingredient 2 250g<br/>
-                        - ingredient 3 175g<br/>
-                    </p>
-                <div className="recipe-button-container">
-                    <button className="add-to-list-btn transition">Add To List</button>
-                </div>
+                    <div className="card-ingredient-info transition">
+                        {
+                            data.ingredients.map((ingredient, index) => (
+                                <>
+                                <span className="card-ingredient-text" key={index}>- {ingredient.name} {ingredient.pivot.amount}<br/></span>
+                                </>
+                            ))
+                        }
+                    </div>
+                    <div className="recipe-button-container">
+                        <button className="add-to-list-btn transition">Add To List</button>
+                    </div>
                 </div>
                 <div className="recipe-card-buttons">
                     <div className="svg-with-count">
                         <IoMdShareAlt className="card-svg" style={{marginLeft:"18px"}}/>
                     </div>
                     <div className="svg-with-count">
-                        <span>60</span><BiSolidCommentMinus className="card-svg"/>
+                        <span>{data.comments_count}</span><BiSolidCommentMinus className="card-svg"/>
                     </div>
                     <div className="svg-with-count">
-                        <span>55</span> <AiFillHeart className="card-svg"/>
+                        <span>{data.likes_count}</span> <AiFillHeart className="card-svg"/>
                     </div>
                 </div>
             </div>

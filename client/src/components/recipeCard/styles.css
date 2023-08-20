@@ -16,6 +16,7 @@
     width: 16.5625rem;
     height: 12.5rem;
     flex-shrink: 0;
+    border-bottom: 2px solid rgb(247, 129, 91);
 }
 
 .recipe-image>img{
@@ -107,7 +108,7 @@
     display: flex;
     width: 3rem;
     height: 6.0625rem;
-    padding: 0rem 0.625rem 0.625rem 0.625rem;
+    /* padding: 0rem 0.625rem 0.625rem 0.625rem; */
     flex-direction: column;
     align-items: flex-start;
     gap: 0.25rem;
@@ -123,12 +124,33 @@
 .svg-with-count{
     display: flex;
     width: 3rem;
+    justify-content: space-evenly;
+    padding: auto;
+    width: 100%;
 }
 
 .svg-with-count>span{
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.card-share{
-    margin-left: 1.1rem;
+.card-ingredient-info{
+    height: 60px;
+    overflow-y: auto;
+    padding-left: 10px;
+    margin-bottom: 2px;
 }
+
+.card-ingredient-info:hover{
+    transform: scale(1.01, 1.01);
+    background-color: rgb(233, 233, 233);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+}
+
+.card-ingredient-text{
+    font-size: 1rem;
+}
+
+/* .card-share{
+    margin-left: 1.1rem;
+} */

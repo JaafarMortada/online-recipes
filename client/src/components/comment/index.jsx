@@ -1,10 +1,10 @@
 import './styles.css'
 
-const CommentBubble = () => {
+const CommentBubble = ({ data }) => {
     return ( 
         <div className='comment-bubble'>
-            <span className='comment-commenter'>user Name</span>
-            <span className='comment-content'>comment comment comment comment comment comment</span>
+            <span className='comment-commenter'>{data.commenter}</span>
+            <span className='comment-content'>{data.comment}</span>
         </div>
     );
 }

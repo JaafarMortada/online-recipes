@@ -26,5 +26,6 @@
 
 .highlight {
     background-color: rgb(18, 20, 33) !important;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.6);
     color: white;
 }
