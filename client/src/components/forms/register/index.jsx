@@ -4,11 +4,10 @@ import TextInput from "../../textInput/Index";
 import MyButton from "../../button";
 import Logo from "../../../assets/logo";
 import "./styles.css"
-// import axios from "axios";
+import { sendRequest } from "../../../config/request";
 
 const RegistrationForm = ( { toggleForms } ) => {
-    // localStorage.clear()
-    // const navigate = useNavigate();
+
     const [data, setData] = useState({
         name: "",
         email: "",
@@ -20,26 +19,34 @@ const RegistrationForm = ( { toggleForms } ) => {
         setData({...data, [e.target.name]: e.target.value})
     }
 
-    const handleSubmit = async ()=>{
-        // if(data.email && data.password){
-        //     try{
-        //         const response = await axios.post("http://127.0.0.1:8000/api/login", data)
-        //         const message = response.data.message
-        //         if (message==='logged in successfully'){
-        //             localStorage.setItem("token", response.data.user.token)
-        //             navigate("/home")
-        //             }
-        //         }catch(e){
-        //             const login_btn = document.getElementById("login-btn")
-        //             login_btn.innerHTML = 'Failed'
-        //             login_btn.style.backgroundColor = 'rgb(255, 109, 109)'
-        //             setTimeout(() => { 
-        //                 login_btn.innerHTML = 'Log in' 
-        //                 login_btn.style.backgroundColor = 'rgb(109, 160, 255)'
-        //             }, 3000)
-        //         }
-        //     }
-        }
+    const navigate = useNavigate()
+    const handleSubmit = async () => {
+        const register_btn = document.getElementById("register-btn")
+        register_btn.innerHTML = 'Registering...'
+        try {
+            const response = await sendRequest({
+                method: "POST",
+                route: "/api/register",
+                includeHeaders: false,
+                body: data,
+            });
+            if(response.message === "User created successfully"){
+                register_btn.innerHTML = 'success'
+                localStorage.setItem('token', response.user.token)
+                localStorage.setItem('name', response.user.name)
+                navigate('/home')
+            } else {
+                
+                register_btn.innerHTML = 'Failed'
+                register_btn.style.backgroundColor = 'rgb(255, 109, 109)'
+                setTimeout(() => { 
+                    register_btn.innerHTML = 'Register' 
+                    register_btn.style.backgroundColor = 'rgb(247, 129, 91)'
+                }, 3000)
+            }
+        } catch (error) {
+            console.log(error)
+        }}
     
     return (
         <div className="register-form-container rotate-form ">
@@ -81,7 +88,7 @@ const RegistrationForm = ( { toggleForms } ) => {
             />
             <div className="register-btn-div">
                 <MyButton 
-                id="login-btn" 
+                id={"register-btn"}
                 onClick={handleSubmit} 
                 label={'Register'}
                 styles={{width: "150px", fontSize:"1rem"}}
