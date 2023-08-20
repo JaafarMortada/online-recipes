@@ -4,11 +4,9 @@ import TextInput from "../../textInput/Index";
 import MyButton from "../../button";
 import Logo from "../../../assets/logo";
 import "./styles.css"
-// import axios from "axios";
+import { sendRequest } from "../../../config/request";
 
-const LoginForm = ( { toggleForms, toggle } ) => {
-    // localStorage.clear()
-    // const navigate = useNavigate();
+const LoginForm = ( { toggleForms } ) => {
     const [data, setData] = useState({
         email: "",
         password: ""
@@ -18,26 +16,34 @@ const LoginForm = ( { toggleForms, toggle } ) => {
         setData({...data, [e.target.name]: e.target.value})
     }
 
-    const handleSubmit = async ()=>{
-        // if(data.email && data.password){
-        //     try{
-        //         const response = await axios.post("http://127.0.0.1:8000/api/login", data)
-        //         const message = response.data.message
-        //         if (message==='logged in successfully'){
-        //             localStorage.setItem("token", response.data.user.token)
-        //             navigate("/home")
-        //             }
-        //         }catch(e){
-        //             const login_btn = document.getElementById("login-btn")
-        //             login_btn.innerHTML = 'Failed'
-        //             login_btn.style.backgroundColor = 'rgb(255, 109, 109)'
-        //             setTimeout(() => { 
-        //                 login_btn.innerHTML = 'Log in' 
-        //                 login_btn.style.backgroundColor = 'rgb(109, 160, 255)'
-        //             }, 3000)
-        //         }
-        //     }
-        }
+    const navigate = useNavigate()
+    const handleSubmit = async () => {
+        const login_btn = document.getElementById("login-btn")
+        login_btn.innerHTML = 'Logging in...'
+        try {
+            const response = await sendRequest({
+                method: "POST",
+                route: "/api/login",
+                includeHeaders: false,
+                body: data,
+            });
+            if(response.message === "logged in successfully"){
+                login_btn.innerHTML = 'success'
+                localStorage.setItem('token', response.user.token)
+                localStorage.setItem('name', response.user.name)
+                navigate('/home')
+            } else {
+                
+                login_btn.innerHTML = 'Failed'
+                login_btn.style.backgroundColor = 'rgb(255, 109, 109)'
+                setTimeout(() => { 
+                    login_btn.innerHTML = 'Login' 
+                    login_btn.style.backgroundColor = 'rgb(247, 129, 91)'
+                }, 3000)
+            }
+        } catch (error) {
+            console.log(error)
+        }}
     
     return (
         <div className="login-form-container rotate-form">
@@ -63,13 +69,12 @@ const LoginForm = ( { toggleForms, toggle } ) => {
             />
             <div className="login-btn-div">
                 <MyButton 
-                id="login-btn" 
+                id={"login-btn"}
                 onClick={handleSubmit} 
                 label={'Login'}
                 styles={{width: "150px", fontSize:"1rem"}}
                 ></MyButton>
             </div>
-            
             <span>Don't have an account? <br/><span className="register-link" onClick={toggleForms}>Register here!</span>  </span>
         </div>
     );

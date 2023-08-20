@@ -19,7 +19,7 @@ const MySideBar = () => {
           <div className='sidebar-user-icon-div'>
             <Avatar width={'60'} height={'60'}/>
           </div>
-          <span className='sidebar-username'>Username</span>
+          <span className='sidebar-username'>{localStorage.getItem('name')}</span>
         </div>
         <Menu >
           <SubMenu icon={<VscSearch />} label="Search By" >
