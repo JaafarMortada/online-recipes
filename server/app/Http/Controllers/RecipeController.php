@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comment;
 use App\Models\Cuisine;
+use App\Models\Image;
 use App\Models\Ingredient;
 use App\Models\Recipe;
 use App\Models\RecipesIngredients;
@@ -21,6 +22,7 @@ class RecipeController extends Controller
             $recipe->comments_count = $recipe->comments->count();
             $recipe->ingredients;
             $recipe->cuisine;
+            $recipe->images;
             unset($recipe->likes);
             unset($recipe->comments);
         }
@@ -58,6 +60,14 @@ class RecipeController extends Controller
                 } catch (\Throwable $e) {
                     return response()->json(['status' => 'failed']);
                 }
+            }
+            foreach ($request->file('image_url') as $recipe_image) {
+                $file_name = time() . '_' . uniqid() . "_recipe_image." . $recipe_image->getClientOriginalExtension();
+                $recipe_image->storeAs('public/recipes_images', $file_name);
+                $recipe_image_db = new Image;
+                $recipe_image_db->recipe_id = $new_recipe->id;
+                $recipe_image_db->image_url = "recipes_images". "\\" .$file_name;
+                $recipe_image_db->save();
             }
             return response()->json(['status' => 'success']);
         } catch (\Throwable $e) {
