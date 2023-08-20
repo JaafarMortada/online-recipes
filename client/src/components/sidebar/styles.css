@@ -11,6 +11,7 @@
     position: fixed !important;
     top: 0;
     left: 0;
+    border-right: 2px solid rgba(247, 129, 91, 0.7);
 }
 .sidebar-user-profile{
     height: 150px;

@@ -2,17 +2,17 @@ import RecipeCard from "../../components/recipeCard";
 import { useState, useEffect } from "react";
 import { sendRequest } from "../../config/request";
 import Pagination from "../pagination";
-import "./styles.css"
+import "./styles.css";
 import LoadingAnimation from "../../assets/animated/loadingRecipes";
 
 const HomePage = () => {
 
-    const [recipes, setRecipes] = useState([])
-    const [currentPage, setCurrentPage] = useState(1)
-    const [cardsPerPage, setCardsPerPage] = useState(9)
-    const lastCardIndex = currentPage * cardsPerPage
-    const firstCardIndex = lastCardIndex - cardsPerPage
-    const currentCards = recipes.slice(firstCardIndex, lastCardIndex)
+    const [recipes, setRecipes] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [cardsPerPage, setCardsPerPage] = useState(9);
+    const lastCardIndex = currentPage * cardsPerPage;
+    const firstCardIndex = lastCardIndex - cardsPerPage;
+    const currentCards = recipes.slice(firstCardIndex, lastCardIndex);
 
     useEffect(() => {
         const getRecipesHandler = async () => {
@@ -21,34 +21,42 @@ const HomePage = () => {
                     method: "GET",
                     route: "/api/recipes",
                 });
-                setRecipes(response.recipes)
+                setRecipes(response.recipes);
             } catch (error) {
                 console.log(error);
             }
         };
-        getRecipesHandler()
-    }, [])
-    
+        getRecipesHandler();
+    }, []);
+
     return (
         <>
             <div className={"home-container"}>
-                {
-                    recipes?.length > 0
-                        ? (<div className="cards-container">
-                            <h1 className="add-recipe-header showcase-header" style={{ width: '900px' }}>Browse Recipes</h1>
-                            {
-                                currentCards.map((recipe) => (
-                                    <RecipeCard key={recipe.id} data={recipe}/>
-                                ))
-                            }
+                {recipes?.length > 0 ? (
+                    <>
+                        <h1
+                            className="add-recipe-header showcase-header home-header"
+                            style={{ width: "900px" }}
+                        >
+                            Browse Recipes
+                        </h1>
+                        <div className="cards-container">
+                            {currentCards.map((recipe) => (
+                                <RecipeCard key={recipe.id} data={recipe} />
+                            ))}
                         </div>
-                        ) :
-                        (<>
-                            <h1 className="add-recipe-header showcase-header" style={{ width: '900px' }}>Please wait while we get the recipes</h1>
-                            <LoadingAnimation/>
-                        </>
-                        )
-                }
+                    </>
+                ) : (
+                    <>
+                        <h1
+                            className="add-recipe-header showcase-header home-header"
+                            style={{ width: "900px" }}
+                        >
+                            Please wait while we get the recipes
+                        </h1>
+                        <LoadingAnimation />
+                    </>
+                )}
                 <Pagination
                     totalCards={recipes.length}
                     cardsPerPage={cardsPerPage}
@@ -58,6 +66,6 @@ const HomePage = () => {
             </div>
         </>
     );
-}
+};
 
 export default HomePage;

@@ -11,6 +11,12 @@
     display: flex;
     flex-wrap: wrap;
     gap: 50px;
-    padding: 25px 25px 25px;
+    padding: 50px 25px 25px;
     justify-content: center;
+}
+
+.home-header{
+    position: sticky;
+    top: 10px;
+    color: rgb(18, 20, 33)
 }
