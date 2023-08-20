@@ -8,9 +8,11 @@ import { FaListUl, FaCalendarAlt } from 'react-icons/fa';
 import { BiLogOut } from 'react-icons/bi';
 import { VscSearch } from 'react-icons/vsc';
 import { MdOutlineAdd } from 'react-icons/md';
+import { HiHome } from 'react-icons/hi';
 import { useNavigate } from "react-router-dom";
 import { useState, useCallback } from 'react';
 import RecipeModal from '../modal';
+import { sendRequest } from '../../config/request';
 
 const MySideBar = () => {
 
@@ -31,6 +33,24 @@ const MySideBar = () => {
     navigate("/calender")
   }
 
+  const backHome = () => {
+    navigate("/home")
+  }
+
+  const logoutHandler = async () => {
+    try {
+        const response = await sendRequest({
+            method: "POST",
+            route: "/api/logout",
+        });
+        if(response.message === "Successfully logged out"){
+            localStorage.clear()
+            navigate('/')
+            } 
+    } catch (error) {
+        console.log(error);
+    }}
+
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const toggleModal = useCallback(() => {
@@ -49,6 +69,7 @@ const MySideBar = () => {
           <span className='sidebar-username'>{localStorage.getItem('name')}</span>
         </div>
         <Menu >
+          <MenuItem icon={<HiHome /> } onClick={backHome} > Home </MenuItem>
           <SubMenu icon={<VscSearch />} label="Search By" >
             <MenuItem style={{ height: '140px', padding: '5px 15px 5px' }}>
               <div className='search-options'>
@@ -70,7 +91,7 @@ const MySideBar = () => {
         </div>
         <div className='sidebar-logo-container'>
           <Menu>
-            <MenuItem icon={<BiLogOut/>}> Logout </MenuItem>
+            <MenuItem icon={<BiLogOut/>} onClick={logoutHandler}> Logout </MenuItem>
           </Menu>
         
           <div className='sidebar-logo-icon-div'>
