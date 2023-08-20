@@ -4,9 +4,10 @@ import { sendRequest } from "../../config/request";
 import Pagination from "../pagination";
 import "./styles.css";
 import LoadingAnimation from "../../assets/animated/loadingRecipes";
-
+import { useSearchContext } from "../../global/context";
 const HomePage = () => {
 
+    const { search } = useSearchContext();
     const [recipes, setRecipes] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [cardsPerPage, setCardsPerPage] = useState(9);
@@ -21,13 +22,32 @@ const HomePage = () => {
                     method: "GET",
                     route: "/api/recipes",
                 });
-                setRecipes(response.recipes);
+                if(response.recipes){
+                    setRecipes(response.recipes);
+                }
             } catch (error) {
                 console.log(error);
             }
         };
         getRecipesHandler();
     }, []);
+
+    useEffect(() => {
+        const getRecipesHandler = async () => {
+            try {
+                const response = await sendRequest({
+                    method: "GET",
+                    route: `/api/recipes/${search}`,
+                });
+                if (response.recipes) {
+                    setRecipes(response.recipes);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        getRecipesHandler();
+    }, [search]);
 
     return (
         <>
@@ -52,7 +72,7 @@ const HomePage = () => {
                             className="add-recipe-header showcase-header home-header"
                             style={{ width: "900px" }}
                         >
-                            Please wait while we get the recipes
+                            Looking for recipes
                         </h1>
                         <LoadingAnimation />
                     </>

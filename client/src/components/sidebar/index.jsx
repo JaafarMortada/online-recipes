@@ -13,11 +13,33 @@ import { useNavigate } from "react-router-dom";
 import { useState, useCallback } from 'react';
 import RecipeModal from '../modal';
 import { sendRequest } from '../../config/request';
+import { useSearchContext } from '../../global/context';
 
 const MySideBar = () => {
 
   const navigate = useNavigate()
   const [modalChoice, setModalChoice] = useState("")
+  const { updateSearch } = useSearchContext()
+
+  const [data, setData] = useState({
+    search_for: "",
+  })
+
+  const [searchBy, setSearchBy] = useState('')
+
+  const handleDataChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value })
+  }
+
+  const searchHandler = () => {
+    updateSearch(`${searchBy}/${data.search_for}`)
+  }
+
+  const cancelSearch = () => {
+    updateSearch('')
+    setData({ search_for: "" })
+    setSearchBy('')
+  }
 
   const openModalToAddEvent = () => {
     setModalChoice("addCalenderEvent")
@@ -39,63 +61,87 @@ const MySideBar = () => {
 
   const logoutHandler = async () => {
     try {
-        const response = await sendRequest({
-            method: "POST",
-            route: "/api/logout",
-        });
-        if(response.message === "Successfully logged out"){
-            localStorage.clear()
-            navigate('/')
-            } 
+      const response = await sendRequest({
+        method: "POST",
+        route: "/api/logout",
+      });
+      if (response.message === "Successfully logged out") {
+        localStorage.clear()
+        navigate('/')
+      }
     } catch (error) {
-        console.log(error);
-    }}
+      console.log(error);
+    }
+  }
 
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const toggleModal = useCallback(() => {
-      setIsModalOpen(prevValue => !prevValue);
+    setIsModalOpen(prevValue => !prevValue);
   }, []);
-        
+
   return (
     <>
-      <RecipeModal isOpen={isModalOpen} toggleModal={toggleModal} from={modalChoice}/>
+      <RecipeModal isOpen={isModalOpen} toggleModal={toggleModal} from={modalChoice} />
       <Sidebar>
         <div>
-        <div className='sidebar-user-profile'>
-          <div className='sidebar-user-icon-div'>
-            <Avatar width={'60'} height={'60'}/>
+          <div className='sidebar-user-profile'>
+            <div className='sidebar-user-icon-div'>
+              <Avatar width={'60'} height={'60'} />
+            </div>
+            <span className='sidebar-username'>{localStorage.getItem('name')}</span>
           </div>
-          <span className='sidebar-username'>{localStorage.getItem('name')}</span>
-        </div>
-        <Menu >
-          <MenuItem icon={<HiHome /> } onClick={backHome} > Home </MenuItem>
-          <SubMenu icon={<VscSearch />} label="Search By" >
-            <MenuItem style={{ height: '140px', padding: '5px 15px 5px' }}>
-              <div className='search-options'>
-              <MyButton label={"name"} />
-              <MyButton label={"cuisine"} />
-              <MyButton label={"ingredient"} />
-              </div>
-              <TextInput type={'text'} placeholder={"search a recipe"} />
-              <MyButton label={"Search"} />
-            </MenuItem>
-          </SubMenu>
-          <MenuItem icon={<MdOutlineAdd/>} onClick={openModalToAddRecipe}> Create A Recipe </MenuItem>
-            <MenuItem icon={<FaListUl/>}> My Shopping List </MenuItem>
-          <SubMenu icon={<FaCalendarAlt/>} label="Calender" >
-            <MenuItem icon={<MdOutlineAdd/>} onClick={openModalToAddEvent}> Add an event </MenuItem>
-            <MenuItem icon={<FaCalendarAlt/>} onClick={viewCalender}> View calender </MenuItem>
-          </SubMenu>
-        </Menu>
+          <Menu >
+            <MenuItem icon={<HiHome />} onClick={backHome} > Home </MenuItem>
+            <SubMenu icon={<VscSearch />} label="Search By" >
+              <MenuItem style={{ height: '140px', padding: '5px 15px 5px' }}>
+                <div className='search-options'>
+                  <MyButton
+                    label={"name"}
+                    onClick={() => setSearchBy('name')}
+                    className={searchBy === 'name' ? 'highlight' : ''}
+                    styles={{ width: '67px' }}
+                  />
+                  <MyButton
+                    label={"cuisine"}
+                    onClick={() => setSearchBy('cuisine')}
+                    className={searchBy === 'cuisine' ? 'highlight' : ''}
+                    styles={{ width: '67px' }}
+                  />
+                  <MyButton
+                    label={"ingredient"}
+                    onClick={() => setSearchBy('ingredient')}
+                    className={searchBy === 'ingredient' ? 'highlight' : ''}
+                    styles={{ width: '67px' }}
+                  />
+                </div>
+                <TextInput
+                  name={'search_for'}
+                  type={'text'}
+                  placeholder={"search a recipe"}
+                  onChange={handleDataChange}
+                  value={data.search_for}
+                />
+                <div className='search-cancel-container'>
+                  <MyButton label={"cancel"} onClick={cancelSearch} styles={{ width: '67px' }} />
+                  <MyButton label={"Search"} onClick={searchHandler} styles={{ width: '67px' }} />
+                </div>
+              </MenuItem>
+            </SubMenu>
+            <MenuItem icon={<MdOutlineAdd />} onClick={openModalToAddRecipe}> Create A Recipe </MenuItem>
+            <MenuItem icon={<FaListUl />}> My Shopping List </MenuItem>
+            <SubMenu icon={<FaCalendarAlt />} label="Calender" >
+              <MenuItem icon={<MdOutlineAdd />} onClick={openModalToAddEvent}> Add an event </MenuItem>
+              <MenuItem icon={<FaCalendarAlt />} onClick={viewCalender}> View calender </MenuItem>
+            </SubMenu>
+          </Menu>
         </div>
         <div className='sidebar-logo-container'>
           <Menu>
-            <MenuItem icon={<BiLogOut/>} onClick={logoutHandler}> Logout </MenuItem>
+            <MenuItem icon={<BiLogOut />} onClick={logoutHandler}> Logout </MenuItem>
           </Menu>
-        
           <div className='sidebar-logo-icon-div'>
-            <Logo/>
+            <Logo />
           </div>
           <span className='sidebar-rights'>© No copy rights</span>
         </div>

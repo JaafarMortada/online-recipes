@@ -5,15 +5,18 @@ import { BrowserRouter, Route, Routes, createBrowserRouter } from 'react-router-
 import LoginPage from './pages/login';
 import MealPlanner from './components/calender';
 import HomePage from './pages/home';
+import { SearchProvider } from './global/context';
 
 const ShowSideBarIn = () => {
   return (
     <>
+    <SearchProvider>
       <MySideBar />
-      <Routes>
-        <Route path="/home" element={<HomePage/>} />
-        <Route path="/calender" element={<MealPlanner />} />
-      </Routes>
+        <Routes>
+          <Route path="/home" element={<HomePage/>} />
+          <Route path="/calender" element={<MealPlanner />} />
+        </Routes>
+    </SearchProvider>
     </>
   );
 }

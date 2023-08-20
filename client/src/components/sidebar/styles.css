@@ -48,3 +48,8 @@
     gap: 5px;
     justify-content: space-between;
 }
+
+.search-cancel-container{
+    display: flex;
+    justify-content: space-around;
+}
