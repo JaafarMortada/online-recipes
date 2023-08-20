@@ -1,0 +1,15 @@
+.add-recipe-header{
+    text-align: center;
+    font-size: 24px;
+}
+
+.add-recipe-modal-container{
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.add-recipe-modal-buttons-container{
+    display: flex;
+    justify-content: space-around;
+}

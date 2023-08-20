@@ -8,6 +8,7 @@ import { FaListUl, FaCalendarAlt } from 'react-icons/fa';
 import { BiLogOut } from 'react-icons/bi';
 import { VscSearch } from 'react-icons/vsc';
 import { PiCheckFatFill } from 'react-icons/pi';
+import { MdOutlineAdd } from 'react-icons/md';
 
 const MySideBar = () => {
   return (
@@ -32,6 +33,7 @@ const MySideBar = () => {
               <MyButton label={"Search"} />
             </MenuItem>
           </SubMenu>
+          <MenuItem icon={<MdOutlineAdd/>}> Create A Recipe </MenuItem>
           <SubMenu icon={<FaListUl/>} label="My Shopping Lists" >
             <MenuItem icon={<PiCheckFatFill/>}> List 1 </MenuItem>
             <MenuItem icon={<PiCheckFatFill/>}> List 2 </MenuItem>
