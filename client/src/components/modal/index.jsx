@@ -2,6 +2,7 @@ import ReactModal from 'react-modal';
 import "./styles.css"
 import RecipeInfoModalContent from './recipeInfoModalContent';
 import AddRecipeFromModal from './addRecipeModalContent';
+import AddCalenderEvent from './addEvent';
 
 const RecipeModal = ({toggleModal, isOpen}) => {
     return ( 
@@ -38,7 +39,8 @@ const RecipeModal = ({toggleModal, isOpen}) => {
                 
             >
                 {/* <RecipeInfoModalContent/> */}
-                <AddRecipeFromModal/>
+                {/* <AddRecipeFromModal/> */}
+                <AddCalenderEvent/>
             </ReactModal>
     );
 }

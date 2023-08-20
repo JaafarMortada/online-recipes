@@ -34,12 +34,11 @@ const MySideBar = () => {
             </MenuItem>
           </SubMenu>
           <MenuItem icon={<MdOutlineAdd/>}> Create A Recipe </MenuItem>
-          <SubMenu icon={<FaListUl/>} label="My Shopping Lists" >
-            <MenuItem icon={<PiCheckFatFill/>}> List 1 </MenuItem>
-            <MenuItem icon={<PiCheckFatFill/>}> List 2 </MenuItem>
-            <MenuItem icon={<PiCheckFatFill/>}> List 3 </MenuItem>
+            <MenuItem icon={<FaListUl/>}> My Shopping List </MenuItem>
+          <SubMenu icon={<FaCalendarAlt/>} label="Calender" >
+            <MenuItem icon={<MdOutlineAdd/>}> Add an event </MenuItem>
+            <MenuItem icon={<FaCalendarAlt/>}> View calender </MenuItem>
           </SubMenu>
-          <MenuItem icon={<FaCalendarAlt/>}> Calendar </MenuItem>
         </Menu>
         </div>
         <div className='sidebar-logo-container'>
