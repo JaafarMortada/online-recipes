@@ -56,7 +56,11 @@ const RecipeInfoModalContent = ( { data } ) => {
         <div className='recipe-modal-content'>
             <div className='recipe-modal-content-left'>
                 <h1 className='showcase-header'>Recipe Showcase</h1>
-                <ModalImage src={"https://cdn.pixabay.com/photo/2016/12/26/17/28/spaghetti-1932466_1280.jpg"} />
+                {
+                        data.images?.map(image_data => (
+                            <ModalImage key={image_data.id} src={`http://localhost:8000/storage/${image_data.image_url}`} />
+                        ))
+                }
             </div>
             <div className='recipe-modal-content-right'>
                 <div className='send-comment'>

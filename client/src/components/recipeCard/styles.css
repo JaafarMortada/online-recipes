@@ -43,6 +43,26 @@
     line-height: normal;
 }
 
+.recipe-cuisine{
+    color: rgb(18, 20, 33);
+    background-color: rgba(247, 129, 91, 0.8);
+    border-radius: 5px;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    position: relative;
+    padding: 10px;
+    top: -223px;
+    left: 10px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.recipe-cuisine:hover{
+    background-color: rgb(18, 20, 33);
+    color: rgb(255, 255, 255);
+}
+
 .recipe-card-bottom-section{
     display: flex;
     flex-wrap: nowrap;

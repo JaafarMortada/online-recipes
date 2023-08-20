@@ -36,7 +36,8 @@ const RecipeCard = ( { data } ) => {
         <RecipeModal isOpen={isModalOpen} toggleModal={toggleModal} data={ data } from={"card"}/>
         <div className="recipe-card transition" >
             <div className="recipe-image" onClick={() => setIsModalOpen(true)}>
-                <img src="https://cdn.pixabay.com/photo/2016/12/26/17/28/spaghetti-1932466_1280.jpg"></img>
+                <img src={`http://localhost:8000/storage/${data.images[0].image_url? data.images[0].image_url : ''}`}></img>
+                <span className="recipe-cuisine transition">{data.cuisine.name}</span>
             </div>
             <div className="recipe-name-container">
                 <span className="recipe-title">{data.name}</span>
