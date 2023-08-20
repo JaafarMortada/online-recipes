@@ -14,9 +14,30 @@ use Illuminate\Support\Facades\Auth;
 
 class RecipeController extends Controller
 {
-    public function getRecipes()
+    public function getRecipes($search = null, $value = null)
     {
-        $recipes = Recipe::all();
+        $user = Auth::user();
+        if(is_null($user)){
+            return response()->json(['message' => 'failed']);
+        }
+        if($search === "name"){
+            $recipes = Recipe::where('name', 'LIKE', "%{$value}%")->get();
+        } elseif ($search === "ingredient"){
+            $ingredients = Ingredient::where('name', 'LIKE', "%{$value}%")->get();
+            $recipes = [];
+            foreach($ingredients as $ingredient){
+                $recipes = $ingredient->recipes;
+            }
+        } elseif ($search === "cuisine"){
+            $cuisines = Cuisine::where('name', 'LIKE', "%{$value}%")->get();
+            $recipes = [];
+            foreach($cuisines as $cuisine){
+                $recipes = $cuisine->recipes;
+            }
+        } else {
+            $recipes = Recipe::all();
+        }
+        
         foreach($recipes as $recipe){
             $recipe->likes_count = $recipe->likes->count();
             $recipe->comments_count = $recipe->comments->count();

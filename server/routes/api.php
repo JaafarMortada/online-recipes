@@ -8,7 +8,7 @@ use App\Http\Controllers\CalenderController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\SearchController;
 
-Route::get("recipes", [RecipeController::class, "getRecipes"]);
+Route::get("recipes/{search?}/{value?}", [RecipeController::class, "getRecipes"]);
 Route::get("comments/{id}", [RecipeController::class, "getComments"]);
 Route::post("post_comment", [RecipeController::class, "PostComment"]);
 Route::post("create_recipe", [RecipeController::class, "createRecipe"]);
