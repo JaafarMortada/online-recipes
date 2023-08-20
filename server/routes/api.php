@@ -14,8 +14,8 @@ Route::post("create_recipe", [RecipeController::class, "createRecipe"]);
 Route::post("search_by_name", [SearchController::class, "searchByName"]);
 Route::post("search_by_ingredient", [SearchController::class, "searchByIngredient"]);
 Route::post("search_by_cuisine", [SearchController::class, "searchByCuisine"]);
-Route::post("like", [LikeCommentController::class, "like"]);
-Route::post("unlike", [LikeCommentController::class, "unlike"]);
+Route::post("like", [LikeController::class, "like"]);
+Route::post("unlike", [LikeController::class, "unlike"]);
 
 Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'login');
