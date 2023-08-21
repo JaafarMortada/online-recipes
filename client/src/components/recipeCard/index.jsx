@@ -3,7 +3,6 @@ import "./styles.css"
 import RecipeModal from "../modal";
 import { AiFillHeart } from 'react-icons/ai';
 import { BiSolidCommentMinus } from 'react-icons/bi';
-import { IoMdShareAlt } from 'react-icons/io';
 import { sendRequest } from "../../config/request";
 import RecipeCardCarousel from "./carousel";
 import ClickHere from "../../assets/animated/clickHere";
@@ -12,23 +11,26 @@ import ClickHere from "../../assets/animated/clickHere";
 const RecipeCard = ({ data }) => {
 
     const [likesCount, setLikesCount] = useState(data.likes_count)
+    const [commentsCount, setCommentsCount] = useState(data.comments_count)
     const [like, setLike] = useState(data.is_liked);
     const [inList, setInList] = useState(data.in_list);
-    const likeHandler = async () => {
-        if (!like) {
-            setLikesCount(likesCount + 1)
-        }
-        setLike(true)
+    const likeRequest = async () => {
         try {
             await sendRequest({
                 method: "POST",
-                route: "/api/like",
+                route: !like ? "/api/like" : "/api/unlike",
                 body: { recipe_id: data.id },
             });
         } catch (error) {
             console.log(error)
         }
     }
+
+    const likeHandler = () => {
+        likeRequest()
+        setLike(like ? false : true)
+        setLikesCount(!like? likesCount+1 : likesCount-1)
+        }
 
     const addToListHandler = async () => {
         setInList(true)
@@ -49,9 +51,13 @@ const RecipeCard = ({ data }) => {
         setIsModalOpen(prevValue => !prevValue);
     }, []);
 
+    const incrementCommentsCount = useCallback(() => {
+        setCommentsCount(commentsCount + 1);
+    }, []);
+
     return (
         <>
-            <RecipeModal isOpen={isModalOpen} toggleModal={toggleModal} data={data} from={"card"} />
+            <RecipeModal isOpen={isModalOpen} toggleModal={toggleModal} data={data} from={"card"} commentsCallback={incrementCommentsCount}/>
             <div className="recipe-card transition" >
                 <div className="recipe-image" onClick={() => setIsModalOpen(true)}>
                     <RecipeCardCarousel images={data.images}/>
@@ -65,7 +71,12 @@ const RecipeCard = ({ data }) => {
                         <div className="card-ingredient-info transition">
                             {
                                 data.ingredients.map(ingredient => (
-                                    <span className="card-ingredient-text" key={`${ingredient.name}-${ingredient.id}`}>- {ingredient.name} {ingredient.pivot.amount}<br /></span>
+                                    <span 
+                                        className="card-ingredient-text" 
+                                        key={`${ingredient.name}-${ingredient.id}`}
+                                    >
+                                        - {ingredient.name} {ingredient.pivot.amount}<br />
+                                    </span>
                                 ))
                             }
                         </div>
@@ -78,14 +89,20 @@ const RecipeCard = ({ data }) => {
                         </div>
                     </div>
                     <div className="recipe-card-buttons">
-                        {/* <div className="svg-with-count">
-                        <IoMdShareAlt className="card-svg" style={{marginLeft:"18px"}}/>
-                    </div> */}
                         <div className="svg-with-count">
-                            <span>{data.comments_count}</span><BiSolidCommentMinus className="card-svg" />
+                            <span>{commentsCount}</span>
+                            <BiSolidCommentMinus 
+                                className="card-svg" 
+                                onClick={() => setIsModalOpen(true)}
+                            />
                         </div>
                         <div className="svg-with-count">
-                            <span>{likesCount}</span> <AiFillHeart id={`$like-btn-${data.id}`} className={`card-svg  ${data.is_liked ? 'red-like' : ''} ${like ? 'red-like' : ''}`} onClick={likeHandler} />
+                            <span>{likesCount}</span> 
+                            <AiFillHeart 
+                                id={`$like-btn-${data.id}`} 
+                                className={`card-svg  ${like ? 'red-like' : ''}`} 
+                                onClick={likeHandler} 
+                            />
                         </div>
                     </div>
                 </div>

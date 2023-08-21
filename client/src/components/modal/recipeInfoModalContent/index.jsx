@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import EmptyComments from '../../../assets/animated/emptyComments';
 import ShareButtons from '../share';
 
-const RecipeInfoModalContent = ({ data }) => {
+const RecipeInfoModalContent = ({ data, commentsCallback }) => {
 
     const [comments, setComments] = useState([])
     const [newComment, setNewComment] = useState({
@@ -33,6 +33,7 @@ const RecipeInfoModalContent = ({ data }) => {
                     comment: "",
                     recipe_id: data.id
                 })
+                commentsCallback()
             } else {
                 console.log('failed')
             }
