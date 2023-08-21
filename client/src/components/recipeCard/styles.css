@@ -196,7 +196,10 @@
     color: rgb(18, 20, 33);
 }
 
-
-/* .card-share{
-    margin-left: 1.1rem;
-} */
+.click-here-div{
+    position: relative;
+    top: -255px;
+    right: -170px;
+    transform: rotate(-30deg);
+    cursor: pointer;
+}

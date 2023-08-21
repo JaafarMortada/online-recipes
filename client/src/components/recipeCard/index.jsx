@@ -6,6 +6,7 @@ import { BiSolidCommentMinus } from 'react-icons/bi';
 import { IoMdShareAlt } from 'react-icons/io';
 import { sendRequest } from "../../config/request";
 import RecipeCardCarousel from "./carousel";
+import ClickHere from "../../assets/animated/clickHere";
 
 
 const RecipeCard = ({ data }) => {
@@ -87,6 +88,9 @@ const RecipeCard = ({ data }) => {
                             <span>{likesCount}</span> <AiFillHeart id={`$like-btn-${data.id}`} className={`card-svg  ${data.is_liked ? 'red-like' : ''} ${like ? 'red-like' : ''}`} onClick={likeHandler} />
                         </div>
                     </div>
+                </div>
+                <div className="click-here-div">
+                    <ClickHere onClick={() => setIsModalOpen(true)}/>
                 </div>
             </div>
         </>
