@@ -6,12 +6,12 @@ import RegistrationForm from "../../components/forms/register";
 import "./styles.css"
 
 const LoginPage = () => {
-
+    localStorage.clear()
     const [showLoginForm, setShowLoginForm] = useState(true)
 
     const toggleForms = useCallback(() => {
         setShowLoginForm(prevValue => !prevValue);
-      }, []);
+    }, []);
     return ( 
         <>
         <div className="login-page-body">

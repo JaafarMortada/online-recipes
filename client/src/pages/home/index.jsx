@@ -106,9 +106,18 @@ const HomePage = () => {
                             className="add-recipe-header showcase-header home-header"
                             style={{ width: "900px" }}
                         >
-                            {currentCards.length>0 ? 'Looking for recipes' : 'No recipes found'}
+                            {(search === '' && currentCards.length === 0) ? 'Looking for recipes' : 'No recipes found'}
                         </h1>
-                        <LoadingAnimation />
+                        {search && currentCards.length === 0 ? 
+                        <div className="empty-shopping-list">
+                        <EmptyComments />
+                    <span className='empty-comment-section'> 
+                        No such recipe found...
+                        <br/> Try something else
+                    </span>
+                    </div>
+                        
+                        : <LoadingAnimation />}
                     </>
                 )}
                 <Pagination

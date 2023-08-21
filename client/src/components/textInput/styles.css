@@ -6,6 +6,8 @@
 .text-input-label{
     font-size: 0.8rem;
     padding-bottom: 5px;
+    font-weight: 700;
+    color: rgba(18, 20, 33, 0.9);
 }
 
 .text-input {
@@ -15,10 +17,17 @@
     padding: 5px;
     background-color: none;
     font-size: 14px;
+    font-weight: 700;
+    color: rgba(18, 20, 33);
 }
 
 .text-input:hover {
     border-color: rgb(247, 129, 91);
+}
+
+.text-input:focus{
+    border-color: rgba(247, 129, 91, 0.8);
+    box-shadow: 0 0 5px rgba(247, 129, 91, 0.8);
 }
 
 .transition{

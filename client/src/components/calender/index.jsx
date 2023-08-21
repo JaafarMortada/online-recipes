@@ -3,6 +3,7 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import './styles.css'
 import { useState, useEffect } from 'react'
 import { sendRequest } from "../../config/request";
+import CalenderAnimation from '../../assets/animated/calender';
 
 const MealPlanner = () => {
     
@@ -24,6 +25,10 @@ const MealPlanner = () => {
     }, [])
     return (
         <div className='calender-container'>
+            <div className='calender-animation-container'>
+                <CalenderAnimation/>
+            </div>
+            
             <FullCalendar
                 plugins={[dayGridPlugin]}
                 initialView="dayGridMonth"

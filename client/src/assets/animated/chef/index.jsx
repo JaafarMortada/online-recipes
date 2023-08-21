@@ -10,7 +10,7 @@ function AnimatedChef() {
                 speed="100"
                 frame_rate="24"
                 trigger="loop"
-                style={{width:'400px',height:'400px', backgroundColor: '#ffffff'}}
+                style={{width:'400px',height:'400px', backgroundColor: '#f0f0f0'}}
             ></creattie-embed>
             <Helmet>
                 <script src="https://creattie.com/js/embed.js?id=adfc0335539d5f5148f7" defer />
