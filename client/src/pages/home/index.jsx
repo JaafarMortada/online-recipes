@@ -30,7 +30,7 @@ const HomePage = () => {
             }
         }
         toggleCards()
-    }, [shoppingListIsShown, recipes, inShoppingListRecipes, currentPage, cardsPerPage])
+    }, [shoppingListIsShown, recipes, inShoppingListRecipes, currentPage, cardsPerPage, search])
 
     useEffect(() => {
         const getRecipesHandler = async () => {
@@ -122,7 +122,7 @@ const HomePage = () => {
                     </>
                 )}
                 <Pagination
-                    totalCards={recipes.length}
+                    totalCards={shoppingListIsShown? inShoppingListRecipes.length : recipes.length}
                     cardsPerPage={cardsPerPage}
                     setCurrentPage={setCurrentPage}
                     currentPage={currentPage}
