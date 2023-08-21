@@ -44,6 +44,7 @@ class RecipeController extends Controller
             $recipe->ingredients;
             $recipe->cuisine;
             $recipe->images;
+            $recipe->is_liked = $recipe->likes->contains('user_id', $user->id);
             unset($recipe->likes);
             unset($recipe->comments);
         }
