@@ -8,6 +8,7 @@ use App\Models\Image;
 use App\Models\Ingredient;
 use App\Models\Recipe;
 use App\Models\RecipesIngredients;
+use App\Models\ShoppingList;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -46,9 +47,20 @@ class RecipeController extends Controller
             $recipe->images;
             $recipe->is_liked = $recipe->likes->contains('user_id', $user->id);
             $recipe->in_list = $recipe->likes->contains('user_id', $user->id);
-            $shoppingList = $user->shoppingLists;            
-            $check_if_in_list = $shoppingList[0]->items->contains('recipe_id', $recipe->id);
-            $recipe->in_list = $check_if_in_list;
+            if($user->shoppingLists->isEmpty()){
+                $shoppingList = new ShoppingList;
+                $shoppingList->name = $user->name . "'s shopping List";
+                $shoppingList->user_id = $user->id;
+                $shoppingList->save();
+            } else {
+                $shoppingList = $user->shoppingLists;
+            }
+            if (empty($shoppingList[0])){
+                $recipe->in_list = false;
+            } else {
+                $check_if_in_list = $shoppingList[0]->items->contains('recipe_id', $recipe->id);
+                $recipe->in_list = $check_if_in_list;
+            }
             unset($recipe->likes);
             unset($recipe->comments);
         }
