@@ -16,7 +16,7 @@ const RecipeCard = ( { data } ) => {
         }
         setLike(true)
         try {
-            const response = await sendRequest({
+            await sendRequest({
                 method: "POST",
                 route: "/api/like",
                 body: {recipe_id: data.id},
@@ -28,7 +28,7 @@ const RecipeCard = ( { data } ) => {
     const addToListHandler = async () => {
         setInList(true)
         try {
-            const response = await sendRequest({
+            await sendRequest({
                 method: "POST",
                 route: "/api/add_to_list",
                 body: {recipe_id: data.id},

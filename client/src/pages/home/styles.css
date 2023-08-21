@@ -20,3 +20,8 @@
     top: 10px;
     color: rgb(18, 20, 33)
 }
+
+.empty-shopping-list{
+    display: flex;
+    flex-direction: column;
+}

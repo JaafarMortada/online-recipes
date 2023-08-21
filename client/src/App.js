@@ -6,16 +6,18 @@ import LoginPage from './pages/login';
 import MealPlanner from './components/calender';
 import HomePage from './pages/home';
 import { SearchProvider } from './global/context';
-
+import { ShoppingListStateProvider } from './global/browseOrList';
 const ShowSideBarIn = () => {
   return (
     <>
     <SearchProvider>
-      <MySideBar />
-        <Routes>
-          <Route path="/home" element={<HomePage/>} />
-          <Route path="/calender" element={<MealPlanner />} />
-        </Routes>
+      <ShoppingListStateProvider>
+        <MySideBar />
+          <Routes>
+            <Route path="/home" element={<HomePage/>} />
+            <Route path="/calender" element={<MealPlanner />} />
+          </Routes>
+      </ShoppingListStateProvider>
     </SearchProvider>
     </>
   );

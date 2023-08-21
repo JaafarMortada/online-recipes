@@ -14,12 +14,15 @@ import { useState, useCallback } from 'react';
 import RecipeModal from '../modal';
 import { sendRequest } from '../../config/request';
 import { useSearchContext } from '../../global/context';
+import { useShoppingListState } from "../../global/browseOrList";
+
 
 const MySideBar = () => {
 
   const navigate = useNavigate()
   const [modalChoice, setModalChoice] = useState("")
   const { updateSearch } = useSearchContext()
+  const { setShoppingListIsShown} = useShoppingListState();
 
   const [data, setData] = useState({
     search_for: "",
@@ -57,6 +60,11 @@ const MySideBar = () => {
 
   const backHome = () => {
     navigate("/home")
+    setShoppingListIsShown(false)
+  }
+
+  const toggleShoppingList = () => {
+    setShoppingListIsShown(prevValue => !prevValue)
   }
 
   const logoutHandler = async () => {
@@ -129,7 +137,7 @@ const MySideBar = () => {
               </MenuItem>
             </SubMenu>
             <MenuItem icon={<MdOutlineAdd />} onClick={openModalToAddRecipe}> Create A Recipe </MenuItem>
-            <MenuItem icon={<FaListUl />}> My Shopping List </MenuItem>
+            <MenuItem icon={<FaListUl />} onClick={toggleShoppingList}> My Shopping List </MenuItem>
             <SubMenu icon={<FaCalendarAlt />} label="Calender" >
               <MenuItem icon={<MdOutlineAdd />} onClick={openModalToAddEvent}> Add an event </MenuItem>
               <MenuItem icon={<FaCalendarAlt />} onClick={viewCalender}> View calender </MenuItem>
