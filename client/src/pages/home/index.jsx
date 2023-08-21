@@ -30,7 +30,7 @@ const HomePage = () => {
             }
         }
         toggleCards()
-    }, [shoppingListIsShown, recipes, inShoppingListRecipes])
+    }, [shoppingListIsShown, recipes, inShoppingListRecipes, currentPage, cardsPerPage])
 
     useEffect(() => {
         const getRecipesHandler = async () => {
