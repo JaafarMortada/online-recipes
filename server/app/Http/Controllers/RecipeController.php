@@ -45,6 +45,10 @@ class RecipeController extends Controller
             $recipe->cuisine;
             $recipe->images;
             $recipe->is_liked = $recipe->likes->contains('user_id', $user->id);
+            $recipe->in_list = $recipe->likes->contains('user_id', $user->id);
+            $shoppingList = $user->shoppingLists;            
+            $check_if_in_list = $shoppingList[0]->items->contains('recipe_id', $recipe->id);
+            $recipe->in_list = $check_if_in_list;
             unset($recipe->likes);
             unset($recipe->comments);
         }

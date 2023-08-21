@@ -7,6 +7,7 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\CalenderController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\ShoppingListController;
 
 Route::get("recipes/{search?}/{value?}", [RecipeController::class, "getRecipes"]);
 Route::get("comments/{id}", [RecipeController::class, "getComments"]);
@@ -19,6 +20,7 @@ Route::post("like", [LikeController::class, "like"]);
 Route::post("unlike", [LikeController::class, "unlike"]);
 Route::get("get_plans", [CalenderController::class, "getPlans"]);
 Route::post("set_plan", [CalenderController::class, "setPlan"]);
+Route::post("add_to_list", [ShoppingListController::class, "addToList"]);
 
 Route::controller(AuthController::class)->group(function () {
     Route::post('login', 'login');
