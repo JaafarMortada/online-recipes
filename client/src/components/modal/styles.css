@@ -72,3 +72,12 @@
     padding-top: 3rem;
     color: rgb(18, 20, 33);
 }
+
+.share-buttons-container{
+    position: absolute;
+    bottom: 20px;
+    left: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}

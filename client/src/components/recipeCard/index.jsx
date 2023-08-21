@@ -72,9 +72,9 @@ const RecipeCard = ( { data } ) => {
                     </div>
                 </div>
                 <div className="recipe-card-buttons">
-                    <div className="svg-with-count">
+                    {/* <div className="svg-with-count">
                         <IoMdShareAlt className="card-svg" style={{marginLeft:"18px"}}/>
-                    </div>
+                    </div> */}
                     <div className="svg-with-count">
                         <span>{data.comments_count}</span><BiSolidCommentMinus className="card-svg"/>
                     </div>

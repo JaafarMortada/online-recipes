@@ -6,6 +6,8 @@ import ModalImage from '../modalImage';
 import { sendRequest } from '../../../config/request';
 import { useEffect, useState } from 'react';
 import EmptyComments from '../../../assets/animated/emptyComments';
+import ShareButtons from '../share';
+
 const RecipeInfoModalContent = ({ data }) => {
 
     const [comments, setComments] = useState([])
@@ -56,8 +58,13 @@ const RecipeInfoModalContent = ({ data }) => {
 
     return (
         <div className='recipe-modal-content'>
+            <div className="share-buttons-container">
+                <ShareButtons data = { data }/>
+            </div>
             <div className='recipe-modal-content-left'>
-                <h1 className='showcase-header'>{data.name}</h1>
+                <h1 className='showcase-header'>
+                    {data.name}
+                </h1>
                 {
                     data.images?.map(image_data => (
                         <ModalImage key={image_data.id} src={`http://localhost:8000/storage/${image_data.image_url}`} />
@@ -94,9 +101,9 @@ const RecipeInfoModalContent = ({ data }) => {
                         )) :
                         <>
                             <EmptyComments />
-                            <span className='empty-comment-section'> 
+                            <span className='empty-comment-section'>
                                 It is so quiet here...
-                                <br/> Be the first to comment
+                                <br /> Be the first to comment
                             </span>
                         </>
 
