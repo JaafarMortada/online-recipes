@@ -8,8 +8,10 @@ import { sendRequest } from "../../config/request";
 const RecipeCard = ( { data } ) => {
 
     const [likesCount, setLikesCount] = useState(data.likes_count)
-
+    const [like, setLike] = useState(false);
     const likeHandler = async () => {
+        setLike(true)
+        setLikesCount(likesCount + 1)
         try {
             const response = await sendRequest({
                 method: "POST",
@@ -17,7 +19,8 @@ const RecipeCard = ( { data } ) => {
                 body: {recipe_id: data.id},
             });
             if(response.message === "success"){
-                setLikesCount(likesCount + 1)
+                
+                
             } else {
                 //
             }
@@ -63,7 +66,7 @@ const RecipeCard = ( { data } ) => {
                         <span>{data.comments_count}</span><BiSolidCommentMinus className="card-svg"/>
                     </div>
                     <div className="svg-with-count">
-                        <span>{likesCount}</span> <AiFillHeart className="card-svg" onClick={likeHandler}/>
+                        <span>{likesCount}</span> <AiFillHeart id={`$like-btn-${data.id}`} className={`card-svg  ${data.is_liked? 'red-like' : '' } ${like ? 'red-like' : ''}`} onClick={likeHandler}/>
                     </div>
                 </div>
             </div>
