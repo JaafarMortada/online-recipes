@@ -8,10 +8,12 @@ import { sendRequest } from "../../config/request";
 const RecipeCard = ( { data } ) => {
 
     const [likesCount, setLikesCount] = useState(data.likes_count)
-    const [like, setLike] = useState(false);
+    const [like, setLike] = useState(data.is_liked);
     const likeHandler = async () => {
+        if (!like){
+            setLikesCount(likesCount + 1)
+        }
         setLike(true)
-        setLikesCount(likesCount + 1)
         try {
             const response = await sendRequest({
                 method: "POST",
@@ -55,7 +57,7 @@ const RecipeCard = ( { data } ) => {
                         }
                     </div>
                     <div className="recipe-button-container">
-                        <button className="add-to-list-btn transition">Add To List</button>
+                        <button className={`add-to-list-btn transition ${data.in_list ? 'in-list' : ''}`} disabled={data.in_list}>{data.in_list? "In your List" :'Add To List'}</button>
                     </div>
                 </div>
                 <div className="recipe-card-buttons">
