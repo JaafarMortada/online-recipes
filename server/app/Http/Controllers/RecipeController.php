@@ -36,9 +36,9 @@ class RecipeController extends Controller
                 $recipes = $cuisine->recipes;
             }
         } else {
-            $recipes = Recipe::all();
+            $recipes = Recipe::orderByDesc('id')->get();
         }
-        
+
         foreach($recipes as $recipe){
             $recipe->likes_count = $recipe->likes->count();
             $recipe->comments_count = $recipe->comments->count();
