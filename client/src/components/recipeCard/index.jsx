@@ -8,7 +8,7 @@ import RecipeCardCarousel from "./carousel";
 import ClickHere from "../../assets/animated/clickHere";
 
 
-const RecipeCard = ({ data }) => {
+const RecipeCard = ({ data, addToListCallback }) => {
 
     const [likesCount, setLikesCount] = useState(data.likes_count)
     const [commentsCount, setCommentsCount] = useState(data.comments_count)
@@ -35,11 +35,14 @@ const RecipeCard = ({ data }) => {
     const addToListHandler = async () => {
         setInList(true)
         try {
-            await sendRequest({
+            const response = await sendRequest({
                 method: "POST",
                 route: "/api/add_to_list",
                 body: { recipe_id: data.id },
             })
+            if(response.message === "item added successfully"){
+                addToListCallback(data)
+            }
         } catch (error) {
             console.log(error)
         }

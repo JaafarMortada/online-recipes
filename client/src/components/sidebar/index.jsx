@@ -64,7 +64,7 @@ const MySideBar = () => {
   }
 
   const toggleShoppingList = () => {
-    setShoppingListIsShown(prevValue => !prevValue)
+    setShoppingListIsShown(true)
   }
 
   const logoutHandler = async () => {

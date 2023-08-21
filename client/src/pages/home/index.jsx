@@ -1,5 +1,5 @@
 import RecipeCard from "../../components/recipeCard";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { sendRequest } from "../../config/request";
 import Pagination from "../pagination";
 import "./styles.css";
@@ -8,6 +8,7 @@ import { useSearchContext } from "../../global/context";
 import { useShoppingListState } from "../../global/browseOrList";
 import ShoppingListCard from "../../components/shoppingListCard";
 import EmptyComments from "../../assets/animated/emptyComments";
+
 const HomePage = () => {
 
     const { search } = useSearchContext();
@@ -29,7 +30,7 @@ const HomePage = () => {
             }
         }
         toggleCards()
-    }, [shoppingListIsShown, recipes])
+    }, [shoppingListIsShown, recipes, inShoppingListRecipes])
 
     useEffect(() => {
         const getRecipesHandler = async () => {
@@ -66,6 +67,9 @@ const HomePage = () => {
         getRecipesHandler();
     }, []);
 
+    const addToShoppingList = useCallback((newlyAddedRecipe) => {
+        setInShoppingListRecipes((inShoppingListRecipes) => [...inShoppingListRecipes, newlyAddedRecipe]);
+    }, []);
     return (
         <>
             <div className={"home-container"}>
@@ -91,11 +95,9 @@ const HomePage = () => {
                                 <br/> Browse recipes and let the list grow
                             </span>
                             </div>
-                            
-                        
                             )  : 
                                 currentCards.map((recipe) => (
-                                    <RecipeCard key={recipe.id} data={recipe} />
+                                    <RecipeCard key={recipe.id} data={recipe} addToListCallback={addToShoppingList}/>
                             ))
                             }
                         </div>
@@ -116,7 +118,6 @@ const HomePage = () => {
                         <br/> Try something else
                     </span>
                     </div>
-                        
                         : <LoadingAnimation />}
                     </>
                 )}
