@@ -46,7 +46,6 @@ class RecipeController extends Controller
             $recipe->cuisine;
             $recipe->images;
             $recipe->is_liked = $recipe->likes->contains('user_id', $user->id);
-            $recipe->in_list = $user->shoppingLists[0]->items->contains('user_id', $user->id);
             if($user->shoppingLists->isEmpty()){
                 $shoppingList = new ShoppingList;
                 $shoppingList->name = $user->name . "'s shopping List";
