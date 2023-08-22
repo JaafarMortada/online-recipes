@@ -72,15 +72,14 @@ const HomePage = () => {
     }, []);
     return (
         <>
-            <div className={"home-container"}>
+            <div className={"home-container "}>
                 {recipes?.length > 0 ? (
                     <>
-                        <h1
-                            className="add-recipe-header showcase-header home-header"
-                            style={{ width: "900px" }}
-                        >
-                            {shoppingListIsShown? "My Shopping List" : "Browse Recipes"}
-                        </h1>
+                    <div className="home-header transition">
+                        
+                            <span className="home-header-text">{shoppingListIsShown? "Shopping List" : "Browse Recipes"}</span>
+                        
+                    </div>
                         <div className="cards-container">
                             {shoppingListIsShown?
                                 (currentCards.length>0 ?
@@ -104,12 +103,13 @@ const HomePage = () => {
                     </>
                 ) : (
                     <>
-                        <h1
-                            className="add-recipe-header showcase-header home-header"
-                            style={{ width: "900px" }}
-                        >
-                            {(search === '' && currentCards.length === 0) ? 'Looking for recipes' : 'No recipes found'}
-                        </h1>
+                        <div className="home-header transition">
+                        
+                            <span className="home-header-text">{(search === '' && currentCards.length === 0) ? 'Looking for recipes...' : 'No recipes found'}</span>
+                    
+                        </div>
+                            
+                        
                         {search && currentCards.length === 0 ? 
                         <div className="empty-shopping-list">
                         <EmptyComments />

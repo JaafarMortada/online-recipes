@@ -1,12 +1,13 @@
 .recipe-card{
     display: flex;
     width: 16.5625rem;
-    height: 22rem;
+    height: 21.5rem;
     flex-direction: column;
     align-items: flex-start;
     border-radius: 0rem 0rem 0.9375rem 0.9375rem;
     background: #F3F3F3;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
 }
 
 .recipe-card:hover{
@@ -37,116 +38,97 @@
 
 .recipe-name-container{
     display: flex;
-    width: 16.5625rem;
-    height: 3.4375rem;
-    padding: 0rem 1.6875rem;
-    align-items: center;
-    gap: 0.625rem;
-    flex-shrink: 0;
+    width: 100%;
+    height: 5.4375rem;
+    padding: 0.5rem 0 0.5rem;
+    justify-content: center;
+    /* gap: 0.625rem; */
+    /* flex-shrink: 0; */
 }
 
 .recipe-title{
     color: #040404;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-    width: 80%;
-    height: 40px;
+    width: 90%;
+    overflow: hidden;
+    white-space: nowrap; 
+    text-overflow: ellipsis;
+    /* text-align: center; */
+}
+
+.cuisine-indicator{
+    color: rgb(247, 129, 91);
+    font-size: 1rem;
+    font-weight:500;
+}
+
+.card-bottom-left-text{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex-grow: 2;
+    height: 6.8rem;
+}
+
+.card-cuisine{
+    font-size: 1.1rem;
+    font-weight: 60;
+    text-align: center;
     overflow: hidden;
     white-space: nowrap; 
     text-overflow: ellipsis;
 }
 
-.recipe-cuisine{
-    color: rgb(18, 20, 33);
-    background-color: rgba(247, 129, 91, 0.8);
-    border-radius: 5px;
-    font-size: 1.5rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-    position: relative;
-    padding: 10px;
-    top: -223px;
-    left: 10px;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-}
-
-.recipe-cuisine:hover{
-    background-color: rgb(18, 20, 33);
-    color: rgb(255, 255, 255);
+.card-cuisine-div{
+    width: 100%;
+    padding-left: 12px;
+    padding-top: 0.4rem;
+    /* text-align: center; */
 }
 
 .recipe-card-bottom-section{
     display: flex;
-    flex-wrap: nowrap;
-    width: 16.5625rem;
+    flex-wrap: wrap;
+    width: 100%;
     height: 6.0625rem;
-    padding: 0rem 0rem 0.625rem 0.625rem;
-    /* align-items: flex-start; */
-    flex-shrink: 0;
-    border-radius: 0rem 0rem 0.9375rem 0.9375rem;
 }
 
-.recipe-card-button-section-left{
-    display: flex;
-    width: 13.375rem;
-    height: 6.0625rem;
-    padding-right: 0px;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.625rem;
-    color: #000;
-}
-
-.ingredients{
-    color: #000;
-    font-size: 0.75rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;    
-    margin-bottom: 0.5rem;
-}
-
-.ingredients>p{
-    padding: 0;
-    margin: 0 0 10px;
-}
 .recipe-button-container{
     display: flex;
-    width: 7rem;
-    padding: 0.1875rem 2.8125rem;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.625rem;
+    width: 100%;
+    justify-content: center;
+    
 }
 
 .add-to-list-btn{
-    width: 5.3125rem;
-    height: 1.25rem;
+    width: 7.3125rem;
+    height: 1.75rem;
     border-radius: 0.3125rem;
-    height: 1.5rem;
+    font-size: 1.2rem;
+    height: 1.75rem;
     background: rgb(18, 20, 33);
     color: #FFF;
     border: 0;
     cursor: pointer;
-    margin-left: 2.9rem;
+    margin-left: 3rem;
+    box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.25);
 
 }
 
 .add-to-list-btn:hover{
     background-color: rgb(247, 129, 91);
-    color: rgb(18, 20, 33);
+    /* color: rgb(18, 20, 33); */
 }
 
 .recipe-card-buttons{
     display: flex;
     width: 3rem;
     height: 6.0625rem;
-    /* padding: 0rem 0.625rem 0.625rem 0.625rem; */
     flex-direction: column;
-    align-items: flex-start;
+    justify-content: space-evenly;
     gap: 0.25rem;
     flex-shrink: 0;
 }
@@ -157,16 +139,31 @@
     cursor: pointer;
 }
 
+.card-svg:hover{
+    transform: scale(1.1, 1.1);
+}
+
 .svg-with-count{
     display: flex;
-    width: 3rem;
+    width: 7rem;
     justify-content: space-evenly;
     padding: auto;
     width: 100%;
+    position: relative;
+    right: 10px;
+    bottom: 15px;
 }
 
-.svg-with-count>span{
+.svg-with-count svg{
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.svg-with-count span{
     font-family: Arial, Helvetica, sans-serif;
+    line-height: 25px;
+    font-size: 1.2rem;
+    font-weight: 400;
 }
 
 .card-ingredient-info{
@@ -193,12 +190,12 @@
 
 .in-list{
     background-color: rgba(247, 129, 91, 0.8);
-    color: rgb(18, 20, 33);
+    color: #FFF;
 }
 
 .click-here-div{
     position: relative;
-    top: -255px;
+    top: -225px;
     right: -170px;
     transform: rotate(-30deg);
     cursor: pointer;

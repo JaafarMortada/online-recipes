@@ -1,17 +1,17 @@
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
-const RecipeCardCarousel = ({ images }) => {
+const RecipeCardCarousel = ({ images, showIndicators, showArrows, showStatus }) => {
     return (
         <Carousel 
             dynamicHeight={false} 
             className={"carousal"} 
             showThumbs={false} 
             autoPlay={true} 
-            showStatus={false} 
+            showStatus={showStatus} 
             infiniteLoop={true} 
-            showArrows={false} 
-            showIndicators={false}
+            showArrows={showArrows} 
+            showIndicators={showIndicators}
         >
             {
                 images?.map(image_data => (

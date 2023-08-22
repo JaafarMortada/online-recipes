@@ -12,7 +12,7 @@
     background-color: rgba(247, 129, 91,0.1);
 }
 
-.fc-button-primary{
+/* .fc-button-primary{
     background-color: rgb(247, 129, 91) !important;
     border: 1px solid rgb(247, 129, 91) !important;
 }
@@ -20,12 +20,11 @@
 .fc-button-primary:hover{
     background-color: rgb(18, 20, 33) !important;
     border: 1px solid rgb(18, 20, 33) !important;
-}
+} */
 
 .fc-event-title-container{
-    background-color: rgb(247, 129, 91) ;
-    border: 1px solid rgb(18, 20, 33);
-    font-size: 1.5rem;
+    font-size: 1.1rem;
+    text-wrap: balance;
 }
 
 .fc-header-toolbar{
@@ -33,10 +32,6 @@
     padding-top: 20px;
     padding-right: 40px;
     height: 75px;
-}
-
-.fc-day-today{
-    background-color: rgba(0, 158, 40, 0.5) !important;
 }
 
 .calender-animation-container{

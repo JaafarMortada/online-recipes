@@ -61,33 +61,26 @@ const RecipeCard = ({ data, addToListCallback }) => {
     return (
         <>
             <RecipeModal isOpen={isModalOpen} toggleModal={toggleModal} data={data} from={"card"} commentsCallback={incrementCommentsCount}/>
-            <div className="recipe-card transition" >
-                <div className="recipe-image" onClick={() => setIsModalOpen(true)}>
-                    <RecipeCardCarousel images={data.images}/>
-                    <span className="recipe-cuisine transition">{data.cuisine.name}</span>
+            <div className="recipe-card transition" onClick={() => setIsModalOpen(true)}>
+                <div className="recipe-image">
+                    <RecipeCardCarousel images={data.images} showIndicators={false} showArrows={false} showStatus={false} />
                 </div>
                 <div className="recipe-name-container" >
                     <span className="recipe-title">{data.name}</span>
                 </div>
                 <div className="recipe-card-bottom-section">
-                    <div className="ingredients">
-                        <div className="card-ingredient-info transition">
-                            {
-                                data.ingredients.map(ingredient => (
-                                    <span 
-                                        className="card-ingredient-text" 
-                                        key={`${ingredient.name}-${ingredient.id}`}
-                                    >
-                                        - {ingredient.name} {ingredient.pivot.amount}<br />
-                                    </span>
-                                ))
-                            }
+                    <div className="card-bottom-left-text">
+                        <div className="card-cuisine-div">
+                            <span className="cuisine-indicator">Cuisine: </span><span className="card-cuisine transition">{data.cuisine.name}</span>
                         </div>
                         <div className="recipe-button-container">
                             <button
                                 className={`add-to-list-btn transition ${inList ? 'in-list' : ''}`}
                                 disabled={inList}
-                                onClick={addToListHandler}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    addToListHandler()
+                                }}
                             >{inList ? "In your List" : 'Add To List'}</button>
                         </div>
                     </div>
@@ -95,7 +88,7 @@ const RecipeCard = ({ data, addToListCallback }) => {
                         <div className="svg-with-count">
                             <span>{commentsCount}</span>
                             <BiSolidCommentMinus 
-                                className="card-svg" 
+                                className="card-svg transition" 
                                 onClick={() => setIsModalOpen(true)}
                             />
                         </div>
@@ -103,8 +96,11 @@ const RecipeCard = ({ data, addToListCallback }) => {
                             <span>{likesCount}</span> 
                             <AiFillHeart 
                                 id={`$like-btn-${data.id}`} 
-                                className={`card-svg  ${like ? 'red-like' : ''}`} 
-                                onClick={likeHandler} 
+                                className={`card-svg transition ${like ? 'red-like' : ''}`}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    likeHandler()
+                                }}
                             />
                         </div>
                     </div>

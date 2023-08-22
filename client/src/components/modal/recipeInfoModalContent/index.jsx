@@ -7,6 +7,7 @@ import { sendRequest } from '../../../config/request';
 import { useEffect, useState } from 'react';
 import EmptyComments from '../../../assets/animated/emptyComments';
 import ShareButtons from '../share';
+import RecipeCardCarousel from '../../recipeCard/carousel';
 
 const RecipeInfoModalContent = ({ data, commentsCallback }) => {
 
@@ -63,14 +64,27 @@ const RecipeInfoModalContent = ({ data, commentsCallback }) => {
                 <ShareButtons data = { data }/>
             </div>
             <div className='recipe-modal-content-left'>
-                <h1 className='showcase-header'>
-                    {data.name}
-                </h1>
-                {
-                    data.images?.map(image_data => (
-                        <ModalImage key={image_data.id} src={`http://localhost:8000/storage/${image_data.image_url}`} />
-                    ))
-                }
+                <div className='modal-header-div'>
+                    <h1 className='modal-header'>
+                        <span>{data.name}</span><br/>
+                    </h1>
+                </div>
+                
+                <span className='modal-subheader'>Ingredients:</span>
+                <div className='ingredients-container-modal'>
+                    {
+                        data.ingredients?.map(ingredient => (
+                            <div key={`div-${ingredient.id}`} className='modal-ingredient-info'>
+                                <span key={`ingredient-name-${ingredient.id}`} className='modal-ingredient-name'> &#x2022; {ingredient.name}</span>
+                                <div className='separator'></div>
+                                <span key={`ingredient-amount-${ingredient.id}`} className='modal-ingredient-amount'> {ingredient.pivot.amount}</span>
+                            </div>
+                        ))
+                    }
+                </div>
+                <div className='modal-carousel'>
+                    <RecipeCardCarousel images={data.images} showIndicators={true} showArrows={true} showStatus={true} />
+                </div>
             </div>
             <div className='recipe-modal-content-right'>
                 <div className='send-comment'>
@@ -110,7 +124,7 @@ const RecipeInfoModalContent = ({ data, commentsCallback }) => {
 
                     }
                 </div>
-                <h1 className='comments-header showcase-header'>Comments</h1>
+                <h1 className='comments-header'>Comments</h1>
             </div>
         </div>
     );

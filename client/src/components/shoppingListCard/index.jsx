@@ -20,8 +20,9 @@ const ShoppingListCard = ({ data }) => {
                 ></img>
             </div>
             <div className="list-cousine-div">
-                Cousine:
-                <span className="shopping-list-cuisine transition">
+                <span className="shopping-list-title">{data.name}</span>
+                <span className="shopping-list-cuisine-title">Cousine:</span>
+                <span className="shopping-list-cuisine">
                     {data.cuisine.name}
                 </span>
             </div>

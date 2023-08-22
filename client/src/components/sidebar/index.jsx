@@ -4,26 +4,29 @@ import MyButton from '../button';
 import "./styles.css"
 import Avatar from '../../assets/avatar';
 import Logo from '../../assets/logo';
-import { FaListUl, FaCalendarAlt } from 'react-icons/fa';
+import { FaListUl } from 'react-icons/fa';
+import { BsCalendarCheck, BsCalendarDay } from 'react-icons/bs';
 import { BiLogOut } from 'react-icons/bi';
 import { VscSearch } from 'react-icons/vsc';
+import { BsCalendarPlus } from 'react-icons/bs';
 import { MdOutlineAdd } from 'react-icons/md';
-import { HiHome } from 'react-icons/hi';
-import { useNavigate } from "react-router-dom";
+import { AiOutlineHome } from 'react-icons/ai';
+import { useNavigate,useLocation } from "react-router-dom";
 import { useState, useCallback } from 'react';
 import RecipeModal from '../modal';
 import { sendRequest } from '../../config/request';
 import { useSearchContext } from '../../global/context';
 import { useShoppingListState } from "../../global/browseOrList";
 
-
 const MySideBar = () => {
 
   const navigate = useNavigate()
   const [modalChoice, setModalChoice] = useState("")
-  const { updateSearch } = useSearchContext()
-  const { setShoppingListIsShown} = useShoppingListState();
+  const { search, updateSearch } = useSearchContext()
+  const { shoppingListIsShown, setShoppingListIsShown } = useShoppingListState();
 
+  let location = useLocation();
+  
   const [data, setData] = useState({
     search_for: "",
   })
@@ -36,6 +39,10 @@ const MySideBar = () => {
 
   const searchHandler = () => {
     updateSearch(`${searchBy}/${data.search_for}`)
+    if (location.pathname !== 'home'){
+      navigate("/home")
+    }
+    setShoppingListIsShown(false)
   }
 
   const cancelSearch = () => {
@@ -55,6 +62,8 @@ const MySideBar = () => {
   }
 
   const viewCalender = () => {
+    setShoppingListIsShown(false)
+    cancelSearch()
     navigate("/calender")
   }
 
@@ -64,6 +73,9 @@ const MySideBar = () => {
   }
 
   const toggleShoppingList = () => {
+    if (location.pathname !== 'home'){
+      navigate("/home")
+    }
     setShoppingListIsShown(true)
   }
 
@@ -100,8 +112,8 @@ const MySideBar = () => {
             <span className='sidebar-username'>{localStorage.getItem('name')}</span>
           </div>
           <Menu >
-            <MenuItem icon={<HiHome />} onClick={backHome} > Home </MenuItem>
-            <SubMenu icon={<VscSearch />} label="Search By" >
+            <MenuItem icon={<AiOutlineHome className={location.pathname === "/home" && !shoppingListIsShown ? "use-location transition" : ''} />} onClick={backHome} > Home </MenuItem>
+            <SubMenu icon={<VscSearch className={ search !== '' ? "use-location transition" : ''}/>} label="Search By" >
               <MenuItem style={{ height: '140px', padding: '5px 15px 5px' }}>
                 <div className='search-options'>
                   <MyButton
@@ -136,11 +148,11 @@ const MySideBar = () => {
                 </div>
               </MenuItem>
             </SubMenu>
-            <MenuItem icon={<MdOutlineAdd />} onClick={openModalToAddRecipe}> Create A Recipe </MenuItem>
-            <MenuItem icon={<FaListUl />} onClick={toggleShoppingList}> My Shopping List </MenuItem>
-            <SubMenu icon={<FaCalendarAlt />} label="Calender" >
-              <MenuItem icon={<MdOutlineAdd />} onClick={openModalToAddEvent}> Add an event </MenuItem>
-              <MenuItem icon={<FaCalendarAlt />} onClick={viewCalender}> View calender </MenuItem>
+            <MenuItem icon={<MdOutlineAdd className={(modalChoice === "addRecipe" && isModalOpen) ? "use-location transition" : ''}/>} onClick={openModalToAddRecipe}> Create A Recipe </MenuItem>
+            <MenuItem icon={<FaListUl className={shoppingListIsShown ? "use-location transition" : ''}/>} onClick={toggleShoppingList}> Shopping List </MenuItem>
+            <SubMenu icon={<BsCalendarDay className={(location.pathname === "/calender" || (modalChoice === "addCalenderEvent" && isModalOpen)) ? "use-location transition" : ''}/>} label="Calender" >
+              <MenuItem icon={<BsCalendarCheck className={location.pathname === "/calender" ? "use-location transition" : ''}/>} onClick={viewCalender} > View calender </MenuItem>
+              <MenuItem icon={<BsCalendarPlus className={(modalChoice === "addCalenderEvent" && isModalOpen) ? "use-location transition" : ''} />} onClick={openModalToAddEvent}> Add an event </MenuItem>
             </SubMenu>
           </Menu>
         </div>
